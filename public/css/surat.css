@@ -1,0 +1,172 @@
+body,
+table,
+tr,
+td {
+    padding: 0 !important;
+    margin: 0 !important;
+    /* background-color: #FAFAFA; */
+}
+
+td {
+    vertical-align: top;
+    line-height: 1.6;
+}
+.text-uppercase  { text-transform: uppercase !important; }
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+    margin: 0;
+}
+
+p .capitalize {
+    text-transform: capitalize;
+}
+
+p {
+    font-size: 11pt;
+}
+
+.table {
+    border-collapse: collapse;
+}
+
+.table,
+.table td,
+.table th {
+    border: 1px solid black;
+}
+
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+[class*="col-"] {
+    float: left;
+}
+
+.col-1 {
+    width: 8.33%;
+}
+
+.col-2 {
+    width: 16.66%;
+}
+
+.col-3 {
+    width: 25%;
+}
+
+.col-4 {
+    width: 33.33%;
+}
+
+.col-5 {
+    width: 41.66%;
+}
+
+.col-6 {
+    width: 50%;
+}
+
+.col-7 {
+    width: 58.33%;
+}
+
+.col-8 {
+    width: 66.66%;
+}
+
+.col-9 {
+    width: 75%;
+}
+
+.col-10 {
+    width: 83.33%;
+}
+
+.col-11 {
+    width: 91.66%;
+}
+
+.col-12 {
+    width: 100%;
+}
+
+.mt-1 {
+    margin-top: 10px;
+}
+
+* {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+/* .page {
+			width: 21cm;
+			min-height: 29.7cm;
+			padding: 2cm;
+			margin: 1cm auto;
+			border: 1px #D3D3D3 solid;
+			border-radius: 5px;
+			background: white;
+			box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+		}
+		.subpage {
+			padding: 1cm;
+			height: 256mm;
+		}
+		@page {
+			size: A4;
+			margin: 0;
+		}
+		@media print {
+			.page {
+				margin: 0;
+				border: initial;
+				border-radius: initial;
+				width: initial;
+				min-height: initial;
+				box-shadow: initial;
+				background: initial;
+				page-break-after: always;
+			}
+		} */
+
+.page {
+    width: 21cm;
+    min-height: 33cm;
+    padding: 2cm;
+    margin: 1cm auto;
+    border: 1px #D3D3D3 solid;
+    border-radius: 5px;
+    background: white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.subpage {
+    padding: 1cm;
+    height: 256mm;
+}
+
+@page {
+    size: F4;
+    margin: 0;
+}
+
+@media print {
+    .page {
+        margin: 0;
+        border: initial;
+        border-radius: initial;
+        width: initial;
+        min-height: initial;
+        box-shadow: initial;
+        background: initial;
+        page-break-after: always;
+    }
+}
