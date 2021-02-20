@@ -12,11 +12,11 @@ class UserSeed extends Seeder
     public function run()
     {
         \App\User::create([
-            'nik'  => '123',
-            'name'  => 'suhenda',
-            'email' => 'suhenda@gmail.com',
+            'no_user'  => '123',
+            'name'  => 'user',
+            'email' => 'user@gmail.com',
             'no_telepon' => '082273661010',
-            'password'  => bcrypt('123'),
+            'password'  => bcrypt('user@gmail.com'),
         ]);
     }
 }

@@ -15,19 +15,11 @@ class CreateProfilsTable extends Migration
     {
         Schema::create('profils', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nama_kecamatan')->nullable();
+            $table->string('nama_profil')->nullable();
             $table->string('alamat_kantor')->nullable();
-            $table->string('kabkot')->nullable();
-            $table->string('provinsi')->nullable();
-            $table->string('nama_camat')->nullable();
-            $table->string('nip_camat')->nullable();
-            $table->string('email_kecamatan')->nullable();
+            $table->string('email_profil')->nullable();
             $table->string('no_telepon')->nullable();
-            $table->string('logo_kecamatan')->nullable();
-            $table->text('wilayah_administratif')->nullable();
-            $table->text('sejarah')->nullable();
-            $table->string('visi')->nullable();
-            $table->string('misi')->nullable();
+            $table->string('logo')->nullable();
             $table->timestamps();
         });
     }

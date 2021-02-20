@@ -27,58 +27,33 @@ class ProfilController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'nama_kecamatan' => 'required',
+            'nama_profil' => 'required',
             'alamat_kantor' => 'required',
-            'kabkot' => 'required',
-            'provinsi' => 'required',
-            'nama_camat' => 'required',
-            'nip_camat' => 'required',
-            'email_kecamatan' => 'required',
+            'email_profil' => 'required',
             'no_telepon' => 'required',
-            'wilayah_administratif' => 'required',
-            'sejarah' => 'required',
-            'visi' => 'required',
-            'misi' => 'required',
-            'wilayah_administratif' => 'required',
-            'logo_kecamatan'  => 'image|mimes:jpeg,png,jpg|max:2048'
+            'logo'  => 'image|mimes:jpeg,png,jpg|max:2048'
         ]);
 
         $profil = Profil::findorfail($id);
 
-        if($request->has('logo_kecamatan')) {
-            File::delete($profil->logo_kecamatan);
-            $logo_kecamatan = $request->logo_kecamatan;
-            $new_logo_kecamatan = time().'.'.$logo_kecamatan->getClientOriginalExtension();
-            $logo_kecamatan->move('uploads/profil/', $new_logo_kecamatan);
+        if($request->has('logo')) {
+            File::delete($profil->logo);
+            $logo = $request->logo;
+            $new_logo = time().'.'.$logo->getClientOriginalExtension();
+            $logo->move('uploads/profil/', $new_logo);
             $profil_data = [
-                'nama_kecamatan' => $request->nama_kecamatan,
+                'nama_profil' => $request->nama_profil,
                 'alamat_kantor' => $request->alamat_kantor,
-                'kabkot' => $request->kabkot,
-                'provinsi' => $request->provinsi,
-                'nama_camat' => $request->nama_camat,
-                'nip_camat' => $request->nip_camat,
-                'email_kecamatan' => $request->email_kecamatan,
+                'email_profil' => $request->email_profil,
                 'no_telepon' => $request->no_telepon,
-                'wilayah_administratif' => $request->wilayah_administratif,
-                'sejarah' => $request->sejarah,
-                'visi' => $request->visi,
-                'misi' => $request->misi,
-                'logo_kecamatan' => 'uploads/profil/'.$new_logo_kecamatan
+                'logo' => 'uploads/profil/'.$new_logo
             ];
         } else {
             $profil_data = [
-                'nama_kecamatan' => $request->nama_kecamatan,
+                'nama_profil' => $request->nama_profil,
                 'alamat_kantor' => $request->alamat_kantor,
-                'kabkot' => $request->kabkot,
-                'provinsi' => $request->provinsi,
-                'nama_camat' => $request->nama_camat,
-                'nip_camat' => $request->nip_camat,
-                'email_kecamatan' => $request->email_kecamatan,
+                'email_profil' => $request->email_profil,
                 'no_telepon' => $request->no_telepon,
-                'wilayah_administratif' => $request->wilayah_administratif,
-                'sejarah' => $request->sejarah,
-                'visi' => $request->visi,
-                'misi' => $request->misi,
             ];
         }
 

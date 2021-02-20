@@ -12,19 +12,11 @@ class ProfilSeeder extends Seeder
     public function run()
     {
         \App\Profil::create([
-            'nama_kecamatan'  => 'Sukarame',
-            'alamat_kantor' => 'Perum Korpri Blok B6 Korpri Raya',
-            'kabkot' => 'Bandar Lampung',
-            'provinsi' => 'Lampung',
-            'nama_camat' => 'Zolahuddin Al Zam Zami, S.Sos., MM',
-            'nip_camat' => '1972051919922031002',
-            'email_kecamatan' => 'Sukarame@gmail.com',
-            'no_telepon' => '07211446',
-            'logo_kecamatan' => '-',
-            'wilayah_administratif' => '-',
-            'sejarah' => '-',
-            'visi' => '-',
-            'misi' => '-',
+            'nama_profil'  => 'profil',
+            'alamat_kantor' => 'Jalan',
+            'email_profil' => 'profil@gmail.com',
+            'no_telepon' => '07211111',
+            'logo' => '-',
         ]);
     }
 }

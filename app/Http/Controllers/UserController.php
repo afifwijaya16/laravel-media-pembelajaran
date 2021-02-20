@@ -20,9 +20,9 @@ class UserController extends Controller
 
     public function index()
     {
-        $penduduk = User::orderBy('created_at', 'desc')->get();
-        $dataKependudukan= 'active';
-        return view('admin.penduduk.index', compact('penduduk', 'dataKependudukan'));
+        $siswa = User::orderBy('created_at', 'desc')->get();
+        $dataMaster= 'active';
+        return view('admin.siswa.index', compact('siswa', 'dataMaster'));
     }
 
     /**
@@ -32,8 +32,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        $dataKependudukan= 'active';
-        return view('admin.penduduk.tambah', compact('dataKependudukan'));
+        $dataMaster= 'active';
+        return view('admin.siswa.tambah', compact('dataMaster'));
     }
 
     /**
@@ -45,18 +45,13 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'nik' => 'required',
             'name' => 'required',
             'email' => 'required|email',
             'no_telepon' => 'required',
             'sex' => 'required',
             'tempatlahir' => 'required',
             'tanggallahir' => 'required',
-            'alamat_sebelumnya' => 'required',
-            'alamat_sekarang' => 'required',
-            'kelurahan' => 'required',
-            'kecamatan' => 'required',
-            'kabkot' => 'required',
+            'alamat' => 'required',
             'foto' => 'image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
@@ -68,30 +63,18 @@ class UserController extends Controller
         }
         
         $user = User::create([
-            'nik' => $request->nik,
+            'no_user' => time(),
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->nik),
-            'hubungan_dalam_keluarga' => $request->hubungan_dalam_keluarga,
+            'password' => Hash::make('123'),
             'agama' => $request->agama,
             'no_telepon' => $request->no_telepon,
             'sex' => $request->sex,
             'tempatlahir' => $request->tempatlahir,
             'tanggallahir' => $request->tanggallahir,
-            'pekerjaan' => $request->pekerjaan,
-            'pendidikan_kk' => $request->pendidikan_kk,
-            'kewarganegaraan' => $request->kewarganegaraan,
-            'ayah_nik' => $request->ayah_nik,
-            'nama_ayah' => $request->nama_ayah,
-            'ibu_nik' => $request->ibu_nik,
-            'nama_ibu' => $request->nama_ibu,
-            'status_kawin' => $request->status_kawin,
-            'golongan_darah' => $request->golongan_darah,
-            'alamat_sebelumnya' => $request->alamat_sebelumnya,
-            'alamat_sekarang' => $request->alamat_sekarang,
-            'kelurahan' => $request->kelurahan,
-            'kecamatan' => $request->kecamatan,
-            'kabkot' => $request->kabkot,
+            'nama_orang_tua' => $request->nama_orang_tua,
+            'no_telepon_orang_tua' => $request->no_telepon_orang_tua,
+            'alamat' => $request->alamat,
             'foto' => 'uploads/foto/'.$new_foto,
         ]);
 
@@ -99,7 +82,7 @@ class UserController extends Controller
             $foto->move('uploads/foto/', $new_foto);
         }
 
-        return redirect()->route('user.index')->with('status', 'Add Data Penduduk Success');
+        return redirect()->route('user.index')->with('status', 'Add Data siswa Success');
     }
 
     /**
@@ -121,9 +104,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $dataKependudukan= 'active';
-        $penduduk = User::findorfail($id);
-        return view('admin.penduduk.edit', compact('penduduk','dataKependudukan'));
+        $dataMaster= 'active';
+        $siswa = User::findorfail($id);
+        return view('admin.siswa.edit', compact('siswa','dataMaster'));
     }
 
     /**
@@ -136,86 +119,56 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'nik' => 'required',
-            'kelurahan' => 'required',
-            'kecamatan' => 'required',
-            'kabkot' => 'required',
+            'no_user' => 'required',
             'name' => 'required',
             'email' => 'required',
             'no_telepon' => 'required',
             'tempatlahir' => 'required',
             'tanggallahir' => 'required',
-            'alamat_sebelumnya' => 'required',
-            'alamat_sekarang' => 'required',
+            'alamat' => 'required',
         ]);
 
-        $penduduk = User::findorfail($id);
+        $siswa = User::findorfail($id);
 
         if($request->has('foto')) {
-            File::delete($penduduk->foto);
+            File::delete($siswa->foto);
             $foto = $request->foto;
             $new_foto = time().'.'.$foto->getClientOriginalExtension();
             $foto->move('uploads/foto/', $new_foto);
 
-            $penduduk_data = [
-                'nik' => $request->nik,
+            $siswa_data = [
+                'no_user' => time(),
                 'name' => $request->name,
                 'email' => $request->email,
-                'hubungan_dalam_keluarga' => $request->hubungan_dalam_keluarga,
                 'agama' => $request->agama,
                 'no_telepon' => $request->no_telepon,
                 'sex' => $request->sex,
                 'tempatlahir' => $request->tempatlahir,
                 'tanggallahir' => $request->tanggallahir,
-                'pekerjaan' => $request->pekerjaan,
-                'pendidikan_kk' => $request->pendidikan_kk,
-                'kewarganegaraan' => $request->kewarganegaraan,
-                'ayah_nik' => $request->ayah_nik,
-                'nama_ayah' => $request->nama_ayah,
-                'ibu_nik' => $request->ibu_nik,
-                'nama_ibu' => $request->nama_ibu,
-                'status_kawin' => $request->status_kawin,
-                'golongan_darah' => $request->golongan_darah,
-                'alamat_sebelumnya' => $request->alamat_sebelumnya,
-                'alamat_sekarang' => $request->alamat_sekarang,
-                'kelurahan' => $request->kelurahan,
-                'kecamatan' => $request->kecamatan,
-                'kabkot' => $request->kabkot,
+                'nama_orang_tua' => $request->nama_orang_tua,
+                'no_telepon_orang_tua' => $request->no_telepon_orang_tua,
+                'alamat' => $request->alamat,
                 'foto' => 'uploads/foto/'.$new_foto,
             ];
-
-
         } else {
-            $penduduk_data = [
-                'nik' => $request->nik,
+            $siswa_data = [
+                'no_user' => time(),
                 'name' => $request->name,
                 'email' => $request->email,
-                'hubungan_dalam_keluarga' => $request->hubungan_dalam_keluarga,
                 'agama' => $request->agama,
                 'no_telepon' => $request->no_telepon,
                 'sex' => $request->sex,
                 'tempatlahir' => $request->tempatlahir,
                 'tanggallahir' => $request->tanggallahir,
-                'pekerjaan' => $request->pekerjaan,
-                'pendidikan_kk' => $request->pendidikan_kk,
-                'kewarganegaraan' => $request->kewarganegaraan,
-                'ayah_nik' => $request->ayah_nik,
-                'nama_ayah' => $request->nama_ayah,
-                'ibu_nik' => $request->ibu_nik,
-                'nama_ibu' => $request->nama_ibu,
-                'status_kawin' => $request->status_kawin,
-                'golongan_darah' => $request->golongan_darah,
-                'alamat_sebelumnya' => $request->alamat_sebelumnya,
-                'alamat_sekarang' => $request->alamat_sekarang,
-                'kelurahan' => $request->kelurahan,
-                'kecamatan' => $request->kecamatan,
-                'kabkot' => $request->kabkot,
+                'nama_orang_tua' => $request->nama_orang_tua,
+                'no_telepon_orang_tua' => $request->no_telepon_orang_tua,
+                'alamat' => $request->alamat,
             ];
         }
 
-        $penduduk->update($penduduk_data);
+        $siswa->update($siswa_data);
 
-        return redirect()->route('user.index')->with('status', 'Update Data Penduduk Success');
+        return redirect()->route('user.index')->with('status', 'Update Data siswa Success');
     }
 
     /**
@@ -231,16 +184,16 @@ class UserController extends Controller
             File::delete($user->gambar);
         }
         $user->delete();
-        return redirect()->route('user.index')->with('status', 'Delete Data Penduduk Success');
+        return redirect()->route('user.index')->with('status', 'Delete Data siswa Success');
     }
 
     public function resetPassword($id) {
-        $penduduk = User::findorfail($id);
-        $penduduk_data = [
-            'password' => Hash::make($penduduk->nik),
+        $siswa = User::findorfail($id);
+        $siswa_data = [
+            'password' => Hash::make($siswa->no_user),
             'login' => 0,
         ];
-        $penduduk->update($penduduk_data);
+        $siswa->update($siswa_data);
         return redirect()->route('user.index')->with('status', 'Reset Password Success');
     }
 }
