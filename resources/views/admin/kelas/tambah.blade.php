@@ -2,13 +2,13 @@
 @section('sub-breadcrumb', 'Tambah Kelas')
 @section('content')
 <div class="row">
-    <div class="col-12">
+    <div class="col-8">
         <div class="card">
             <div class="card-body">
                 <form action="{{ route('kelas.store') }}" method="POST">
                     @csrf
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <label>Nama Kelas</label>
                                 <input type="text"
@@ -23,7 +23,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label>Kategori Kelas</label>
                                 <select
@@ -42,7 +42,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label>Jumlah Siswa</label>
                                 <input type="number"

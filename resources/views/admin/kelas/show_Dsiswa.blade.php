@@ -12,7 +12,7 @@
         <tbody>
             @foreach ($kelas->detailkelas as $result => $hasil)
             <tr class="table-sm">
-                <td class="text-center"> </td>
+                <td class="text-center">{{ $loop->iteration }} </td>
                 <td class="text-center">
                     <form action="{{ route('kelas.store') }}" role="form" method="POST">
                         @csrf

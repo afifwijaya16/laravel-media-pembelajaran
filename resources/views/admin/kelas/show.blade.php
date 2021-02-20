@@ -31,18 +31,36 @@
                             </tr>
                             <tr>
                                 <td><b>Jumlah Siswa Max</b></td>
-                                <td><b>{{ $kelas->jumlah_siswa }}</b></td>
+                                <td><b>{{ $kelas->detailkelas->count() }} dari {{ $kelas->jumlah_siswa }} siswa</b></td>
                             </tr>
                         </table>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                <h5>Siswa Kelas {{ $kelas->kelas }}</h5>
+            </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                         @include('admin/kelas/show_Dsiswa')
                     </div>
-                    <div class="col-sm-6">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                <h5>Tambah Siswa</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-12">
                         @include('admin/kelas/show_Tsiswa')
                     </div>
                 </div>
