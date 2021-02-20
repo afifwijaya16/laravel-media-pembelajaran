@@ -6,6 +6,7 @@
                 <th>Mata Pelajaran</th>
                 <th>Jadwal</th>
                 <th>Guru</th>
+                <th>Kelas</th>
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -16,6 +17,20 @@
                 <td class="text-center">{{ $hasil->nama_mapel }}</td>
                 <td class="text-center">{{ $hasil->jadwal_mapel }}</td>
                 <td class="text-center">{{ $hasil->guru->name }}</td>
+                <td class="text-center">
+                    <ul style="list-style-type: none; margin: 0; padding: 0;">
+                        @foreach ($hasil->detailmapel as $detailkelas)
+                        <li>{{ $detailkelas->kelas->kelas }} 
+                             @if($detailkelas->kelas->kategori_kelas == 'Silver')
+                            <span class="badge badge-secondary">{{ $detailkelas->kelas->kategori_kelas }}</span>
+                            @elseif($detailkelas->kelas->kategori_kelas == 'Gold')
+                            <span class="badge badge-warning">{{ $detailkelas->kelas->kategori_kelas }}</span>
+                            @endif
+                        </li>
+                        @endforeach
+                    </ul>
+                </td>
+                
                 <td class="text-center">
                     <form action="{{ route('mapel.destroy', $hasil->id) }}" id="form-delete-{{ $hasil->id}}" role="form"
                         method="POST">

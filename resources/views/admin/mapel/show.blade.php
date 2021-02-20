@@ -31,7 +31,7 @@
                                 <td><b>Keterangan Mata Pelajaran</b></td>
                                 <td><b>{!! $mapel->keterangan_mapel !!}</b></td>
                             </tr>
-                            
+
 
                         </table>
                     </div>
@@ -39,30 +39,54 @@
             </div>
         </div>
     </div>
-    <div class="col-6">
+    <div class="col-12">
         <div class="card">
-            <div class="card-header">
-                <h5>Kelas yang terdapat Mata pelajaran </h5>
-            </div>
+            <div class="card-header p-2">
+                <ul class="nav nav-pills">
+                    <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Materi</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Kelas</a></li>
+
+                </ul>
+            </div><!-- /.card-header -->
             <div class="card-body">
-                <div class="row">
-                    <div class="col-sm-12">
-                        @include('admin/mapel/show_Dkelas')
+                <div class="tab-content">
+                    <div class="active tab-pane" id="activity">
+
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-6">
-        <div class="card">
-            <div class="card-header">
-                <h5>Tambah Kelas</h5>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-sm-12">
-                        @include('admin/mapel/show_Tkelas')
+
+                    <div class="tab-pane" id="timeline">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5>Kelas yang terdapat Mata pelajaran </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                @include('admin/mapel/show_Dkelas')
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5>Tambah Kelas</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                @include('admin/mapel/show_Tkelas')
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </div>
