@@ -31,6 +31,7 @@ class User extends Authenticatable
         'no_telepon_orang_tua',
         'foto',
         'login',
+        'kategori',
     ];
 
     /**

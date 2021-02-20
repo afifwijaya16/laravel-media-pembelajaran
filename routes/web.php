@@ -43,4 +43,7 @@ Route::prefix('admin')->group(function() {
     Route::get('/profil', 'ProfilController@index')->name('admin.profil.index');
     Route::get('/profil/{profil}', 'ProfilController@edit')->name('admin.profil.edit');
     Route::put('/profil/{profil}', 'ProfilController@update')->name('admin.profil.update');
+
+    Route::put('/user/reset-password/{id}', 'UserController@resetPassword')->name('admin.user.resetPassword');
+    Route::resource('/user','UserController');
 });

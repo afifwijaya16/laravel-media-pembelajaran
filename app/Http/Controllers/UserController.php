@@ -52,6 +52,7 @@ class UserController extends Controller
             'tempatlahir' => 'required',
             'tanggallahir' => 'required',
             'alamat' => 'required',
+            'kategori' => 'required',
             'foto' => 'image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
@@ -75,6 +76,7 @@ class UserController extends Controller
             'nama_orang_tua' => $request->nama_orang_tua,
             'no_telepon_orang_tua' => $request->no_telepon_orang_tua,
             'alamat' => $request->alamat,
+            'kategori' => $request->kategori,
             'foto' => 'uploads/foto/'.$new_foto,
         ]);
 
@@ -119,13 +121,14 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'no_user' => 'required',
             'name' => 'required',
-            'email' => 'required',
+            'email' => 'required|email',
             'no_telepon' => 'required',
+            'sex' => 'required',
             'tempatlahir' => 'required',
             'tanggallahir' => 'required',
             'alamat' => 'required',
+            'kategori' => 'required',
         ]);
 
         $siswa = User::findorfail($id);
@@ -137,7 +140,6 @@ class UserController extends Controller
             $foto->move('uploads/foto/', $new_foto);
 
             $siswa_data = [
-                'no_user' => time(),
                 'name' => $request->name,
                 'email' => $request->email,
                 'agama' => $request->agama,
@@ -149,10 +151,10 @@ class UserController extends Controller
                 'no_telepon_orang_tua' => $request->no_telepon_orang_tua,
                 'alamat' => $request->alamat,
                 'foto' => 'uploads/foto/'.$new_foto,
+                'kategori' => $request->kategori,
             ];
         } else {
             $siswa_data = [
-                'no_user' => time(),
                 'name' => $request->name,
                 'email' => $request->email,
                 'agama' => $request->agama,
@@ -163,6 +165,7 @@ class UserController extends Controller
                 'nama_orang_tua' => $request->nama_orang_tua,
                 'no_telepon_orang_tua' => $request->no_telepon_orang_tua,
                 'alamat' => $request->alamat,
+                'kategori' => $request->kategori,
             ];
         }
 

@@ -26,8 +26,9 @@ class CreateUsersTable extends Migration
             $table->string('sex')->nullable();
             $table->string('tempatlahir')->nullable();
             $table->date('tanggallahir')->nullable();
-            $table->date('nama_orang_tua')->nullable();
-            $table->date('no_telepon_orang_tua')->nullable();
+            $table->string('nama_orang_tua')->nullable();
+            $table->string('no_telepon_orang_tua')->nullable();
+            $table->string('kategori')->nullable();
             $table->string('foto')->nullable();
             $table->boolean('login')->default(0);
             $table->rememberToken();

@@ -1,23 +1,13 @@
 @extends('template_backend/home')
-@section('sub-breadcrumb', 'Perbarui Profil')
+@section('sub-breadcrumb', 'Perbarui Siswa')
 @section('content')
-@if (session('status'))
-<script>
-    Swal.fire({
-        icon: 'success',
-        title: '{{ session('
-        status ') }}',
-    })
-
-</script>
-@endif
 <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                Data Perbarui Profil
+                Data Perbarui Siswa
             </div>
-            <form action="{{ route('update.profil', $siswa->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('user.update', $siswa->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('put')
                 <div class="card-body">
@@ -44,42 +34,47 @@
                                 </div>
                             </div>
                         </div> -->
-                        <div class="col-md-12">
+                        <div class="col-md-9">
                             <div class="card">
                                 <div class="card-header p-2">
-                                    <a href="{{ route('home') }}"
-                                        class="btn btn-flat btn-primary btn-sm"
+                                    <a href="{{ route('user.index') }}"
+                                        class="btn btn-social btn-flat btn-info btn-sm visible-xs-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block"
                                         title="Kembali Ke Data Siswa"><i class="fa fa-arrow-alt-circle-left"></i>
                                         Kembali
-                                        Ke Halaman Utama</a>
+                                        Ke Halaman
+                                        Siswa</a>
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-12 my-3 bg-warning">
-                                            <h5 class="m-0">DATA SISWA</h5>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div class="form-group">
-                                                <label>Nomor Siswa</label>
-                                                <input type="text"
-                                                    class="form-control form-control-sm @error('no_user') is-invalid @enderror"
-                                                    disabled maxlength="16" value="{{ $siswa->no_user }}" name="no_user"
-                                                    placeholder="Masukan Nomor Siswa">
-                                                @error('no_user')
-                                                <div class="invalid-feedback">
-                                                    {{ $message }}
-                                                </div>
-                                                @enderror
-                                            </div>
+                                        <div class="col-12 my-3" style="background-color:rgb(30, 136, 243)">
+                                            <h5 class="m-0" style="color:white">DATA SISWA</h5>
                                         </div>
                                         <div class="col-sm-8">
                                             <div class="form-group">
                                                 <label>Nama</label>
                                                 <input type="text"
                                                     class="form-control form-control-sm @error('name') is-invalid @enderror"
-                                                    value="{{ $siswa->name }}" name="name"
-                                                    placeholder="Masukan Nama">
+                                                    value="{{ $siswa->name }}" name="name" placeholder="Masukan Nama">
                                                 @error('name')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Kategori Member</label>
+                                                <select
+                                                    class="form-control form-control-sm @error('kategori') is-invalid @enderror"
+                                                    name="kategori">
+                                                    <option value="">Pilih Kategori Member</option>
+                                                    <option value="Silver" @if ($siswa->kategori == 'Silver')
+                                                        {{ 'selected' }} @endif>Silver</option>
+                                                    <option value="Gold" @if ($siswa->kategori == 'Gold')
+                                                        {{ 'selected' }} @endif>Gold</option>
+                                                </select>
+                                                @error('kategori')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
@@ -96,18 +91,15 @@
                                                     name="agama">
                                                     <option value="">Pilih Agama</option>
                                                     <option value="Islam" @if ($siswa->agama == 'Islam')
-                                                        {{ 'selected' }}
-                                                        @endif >Islam</option>
+                                                        {{ 'selected' }} @endif >Islam</option>
                                                     <option value="Kristen" @if ($siswa->agama == 'Kristen')
                                                         {{ 'selected' }} @endif >Kristen</option>
                                                     <option value="Katolik" @if ($siswa->agama == 'Katolik')
                                                         {{ 'selected' }} @endif>Katolik</option>
                                                     <option value="Budha" @if ($siswa->agama == 'Budha')
-                                                        {{ 'selected' }}
-                                                        @endif >Budha</option>
+                                                        {{ 'selected' }} @endif >Budha</option>
                                                     <option value="Hindu" @if ($siswa->agama == 'Hindu')
-                                                        {{ 'selected' }}
-                                                        @endif>Hindu</option>
+                                                        {{ 'selected' }} @endif>Hindu</option>
                                                 </select>
                                                 @error('agama')
                                                 <div class="invalid-feedback">
@@ -116,7 +108,6 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label>Jenis Kelamin</label>
@@ -139,8 +130,8 @@
                                     </div>
                                     <br>
                                     <div class="row">
-                                        <div class="col-12 my-3 bg-warning">
-                                            <h5 class="m-0">DATA KELAHIRAN</h5>
+                                        <div class="col-12 my-3" style="background-color:rgb(30, 136, 243)">
+                                            <h5 class="m-0" style="color:white">DATA KELAHIRAN</h5>
                                         </div>
                                         <div class="col-sm-4">
                                             <div class="form-group">
@@ -161,8 +152,8 @@
                                                 <label>Tempat Lahir</label>
                                                 <input type="text"
                                                     class="form-control form-control-sm @error('tempatlahir') is-invalid @enderror"
-                                                    value="{{ $siswa->tempatlahir }}"
-                                                    placeholder="Masukan Tempat Lahir" name="tempatlahir">
+                                                    value="{{ $siswa->tempatlahir }}" placeholder="Masukan Tempat Lahir"
+                                                    name="tempatlahir">
                                                 @error('tempatlahir')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
@@ -171,11 +162,12 @@
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="row">
-                                        <div class="col-12 my-3 bg-warning">
-                                            <h5 class="m-0">DATA ORANG TUA</h5>
+                                        <div class="col-12 my-3" style="background-color:rgb(30, 136, 243)">
+                                            <h5 class="m-0" style="color:white">DATA ORANG TUA</h5>
                                         </div>
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label>Nama Orang Tua</label>
                                                 <input type="text"
@@ -189,13 +181,14 @@
                                                 @enderror
                                             </div>
                                         </div>
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-8">
                                             <div class="form-group">
-                                                <label>No Telepon Orang Tua</label>
+                                                <label>No Telepon Orang tua</label>
                                                 <input type="text"
                                                     class="form-control form-control-sm @error('no_telepon_orang_tua') is-invalid @enderror"
-                                                    value="{{ $siswa->no_telepon_orang_tua }}" name="no_telepon_orang_tua"
-                                                    placeholder="Masukan No Telepon Orang Tua">
+                                                    value="{{ $siswa->no_telepon_orang_tua }}"
+                                                    name="no_telepon_orang_tua"
+                                                    placeholder="Masukan No Telepon Orang tua">
                                                 @error('no_telepon_orang_tua')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
@@ -205,16 +198,16 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-12 my-3 bg-warning">
-                                            <h5 class="m-0">ALAMAT</h5>
+                                        <div class="col-12 my-3" style="background-color:rgb(30, 136, 243)">
+                                            <h5 class="m-0" style="color:white">ALAMAT</h5>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label>No Telepon</label>
                                                 <input type="text"
                                                     class="form-control form-control-sm @error('no_telepon') is-invalid @enderror"
-                                                    value="{{ $siswa->no_telepon }}" name="no_telepon"
-                                                    placeholder="Masukan No Telepon">
+                                                    value="{{ old('no_telepon', $siswa->no_telepon) }}"
+                                                    name="no_telepon" placeholder="Masukan No Telepon">
                                                 @error('no_telepon')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
@@ -227,7 +220,7 @@
                                                 <label>Email</label>
                                                 <input type="text"
                                                     class="form-control form-control-sm @error('email') is-invalid @enderror"
-                                                    value="{{ $siswa->email }}" name="email"
+                                                    value="{{ old('email', $siswa->email) }}" name="email"
                                                     placeholder="Masukan Email">
                                                 @error('email')
                                                 <div class="invalid-feedback">
@@ -241,7 +234,7 @@
                                                 <label>Alamat</label>
                                                 <input type="text"
                                                     class="form-control form-control-sm @error('alamat') is-invalid @enderror"
-                                                    value="{{ $siswa->alamat }}" name="alamat"
+                                                    value="{{ old('alamat', $siswa->alamat) }}" name="alamat"
                                                     placeholder="Masukan Alamat">
                                                 @error('alamat')
                                                 <div class="invalid-feedback">
@@ -254,7 +247,7 @@
                                     <div class="form-group row">
                                         <button type="submit" class="btn btn-success mr-1" name="submit" value="Submit">
                                             Perbarui </button>
-                                        <a href="{{ url()->previous() }}" class="btn btn-warning"> Kembali </a>
+                                        <a href="{{ route('user.index') }}" class="btn btn-warning"> Kembali </a>
                                     </div>
 
                                 </div>
