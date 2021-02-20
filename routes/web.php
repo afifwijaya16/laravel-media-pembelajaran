@@ -44,6 +44,9 @@ Route::prefix('admin')->group(function() {
     Route::get('/profil/{profil}', 'ProfilController@edit')->name('admin.profil.edit');
     Route::put('/profil/{profil}', 'ProfilController@update')->name('admin.profil.update');
 
+    // siswa
     Route::put('/user/reset-password/{id}', 'UserController@resetPassword')->name('admin.user.resetPassword');
-    Route::resource('/user','UserController');
+    Route::resource('/user','UserController'); 
+    // guru
+    Route::resource('/guru','GuruController');
 });

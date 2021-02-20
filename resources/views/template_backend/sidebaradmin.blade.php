@@ -19,5 +19,11 @@
                 <p>Siswa</p>
             </a>
         </li>
+        <li class="nav-item">
+            <a href="{{ route('guru.index') }}" class="nav-link {{ request()->is('admin/guru*') ? 'active' : '' }}">
+                <i class="far fa-map nav-icon"></i>
+                <p>Guru</p>
+            </a>
+        </li>
     </ul>
 </li>
