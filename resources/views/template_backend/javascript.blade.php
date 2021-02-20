@@ -3,7 +3,8 @@
 <!-- ./wrapper -->
 
 <!-- jQuery -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
 <!-- Bootstrap 4 -->
 <script src="{{ asset('asset/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- AdminLTE App -->
@@ -17,7 +18,8 @@
 
 <script src="{{ asset('asset/plugins/jquery.chained.min.js')}}"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
-
+<!-- date-range-picker -->
+<script src="{{ asset('asset/plugins/daterangepicker/daterangepicker.js')}}"></script>
 <script>
   $(function () {
     $('#dataTable').DataTable({

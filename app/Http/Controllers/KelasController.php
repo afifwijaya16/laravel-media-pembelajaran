@@ -45,7 +45,7 @@ class KelasController extends Controller
                 'jumlah_siswa' => 'required',
             ]);
 
-            $user = Kelas::create([
+            $kelas = Kelas::create([
                 'kelas' => $request->kelas,
                 'kategori_kelas' => $request->kategori_kelas,
                 'jumlah_siswa' => $request->jumlah_siswa,
@@ -141,8 +141,13 @@ class KelasController extends Controller
     {
         $kelas = Kelas::findorfail($id);
         $detail_kelas = Detailkelas::where('kelas_id', $id);
-        $kelas->delete();
-        $detail_kelas->delete();
+        if ($detail_kelas){
+            $kelas->delete();
+        } else {
+            $kelas->delete();
+            $detail_kelas->delete();
+        }
+
         return redirect()->route('kelas.index')->with('status', 'Berhasil Menghapus data');
     }
 }

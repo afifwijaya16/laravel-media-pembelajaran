@@ -33,3 +33,9 @@
         <p>Kelas</p>
     </a>
 </li>
+<li class="nav-item">
+    <a href="{{ route('mapel.index') }}" class="nav-link {{ request()->is('admin/mapel*') ? 'active' : '' }}">
+        <i class="far fa-map nav-icon"></i>
+        <p>Mata Pelajaran</p>
+    </a>
+</li>

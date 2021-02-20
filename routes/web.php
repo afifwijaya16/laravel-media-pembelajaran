@@ -51,4 +51,6 @@ Route::prefix('admin')->group(function() {
     Route::resource('/guru','GuruController');
     // kelas
     Route::resource('/kelas','KelasController');
+    // mata pelajaran
+    Route::resource('/mapel','MapelController');
 });
