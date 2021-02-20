@@ -16,7 +16,7 @@ class UserSeed extends Seeder
             'name'  => 'user',
             'email' => 'user@gmail.com',
             'no_telepon' => '082273661010',
-            'password'  => bcrypt('user@gmail.com'),
+            'password'  => bcrypt('user'),
         ]);
     }
 }

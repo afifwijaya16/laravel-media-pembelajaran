@@ -49,4 +49,6 @@ Route::prefix('admin')->group(function() {
     Route::resource('/user','UserController'); 
     // guru
     Route::resource('/guru','GuruController');
+    // kelas
+    Route::resource('/kelas','KelasController');
 });

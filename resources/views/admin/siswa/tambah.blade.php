@@ -65,15 +65,15 @@
                                             <div class="form-group">
                                                 <label>Kategori Member</label>
                                                 <select
-                                                    class="form-control form-control-sm @error('ketegori') is-invalid @enderror"
-                                                    name="ketegori">
+                                                    class="form-control form-control-sm @error('kategori') is-invalid @enderror"
+                                                    name="kategori">
                                                     <option value="">Pilih Kategori Member</option>
-                                                    <option value="Silver" @if (old('ketegori')=="Silver" )
+                                                    <option value="Silver" @if (old('kategori')=="Silver" )
                                                         {{ 'selected' }} @endif>Silver</option>
-                                                    <option value="Gold" @if (old('ketegori')=="Gold" )
+                                                    <option value="Gold" @if (old('kategori')=="Gold" )
                                                         {{ 'selected' }} @endif>Gold</option>
                                                 </select>
-                                                @error('ketegori')
+                                                @error('kategori')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>

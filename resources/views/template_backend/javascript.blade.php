@@ -31,6 +31,19 @@
     });
   });
 </script>
+<script>
+  $(function () {
+    $('#dataTable-1').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": false,
+    });
+  });
+</script>
 @stack('js')
 </body>
 </html>

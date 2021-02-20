@@ -17,5 +17,12 @@ class AdminSeed extends Seeder
             'password'  => bcrypt('admin'),
             'level'  => 'Admin',
         ]);
+
+        DB::table('admins')->insert([
+            'name'  => 'guru',
+            'email' => 'guru@gmail.com',
+            'password'  => bcrypt('guru'),
+            'level'  => 'Guru',
+        ]);
     }
 }

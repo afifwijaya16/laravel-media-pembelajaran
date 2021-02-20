@@ -59,6 +59,6 @@ class ProfilController extends Controller
 
         $profil->update($profil_data);
 
-        return redirect()->route('admin.profil.index')->with('status', 'Update Data Profil Success');
+        return redirect()->route('admin.profil.index')->with('status', 'Berhasil Mengubah Data');
     }
 }

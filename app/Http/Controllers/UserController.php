@@ -47,13 +47,13 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email',
+            'agama' => 'required',
             'no_telepon' => 'required',
             'sex' => 'required',
             'tempatlahir' => 'required',
             'tanggallahir' => 'required',
             'alamat' => 'required',
             'kategori' => 'required',
-            'foto' => 'image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
         $foto = $request->foto;
@@ -84,7 +84,7 @@ class UserController extends Controller
             $foto->move('uploads/foto/', $new_foto);
         }
 
-        return redirect()->route('user.index')->with('status', 'Add Data siswa Success');
+        return redirect()->route('user.index')->with('status', 'Data berhasil ditambah');
     }
 
     /**
@@ -171,7 +171,7 @@ class UserController extends Controller
 
         $siswa->update($siswa_data);
 
-        return redirect()->route('user.index')->with('status', 'Update Data siswa Success');
+        return redirect()->route('user.index')->with('status', 'Berhasil Mengubah Data');
     }
 
     /**
@@ -187,16 +187,16 @@ class UserController extends Controller
             File::delete($user->gambar);
         }
         $user->delete();
-        return redirect()->route('user.index')->with('status', 'Delete Data siswa Success');
+        return redirect()->route('user.index')->with('status', 'Berhasil Menghapus data');
     }
 
     public function resetPassword($id) {
         $siswa = User::findorfail($id);
         $siswa_data = [
-            'password' => Hash::make($siswa->no_user),
+            'password' => Hash::make('123'),
             'login' => 0,
         ];
         $siswa->update($siswa_data);
-        return redirect()->route('user.index')->with('status', 'Reset Password Success');
+        return redirect()->route('user.index')->with('status', 'Reset Password Berhasil');
     }
 }
