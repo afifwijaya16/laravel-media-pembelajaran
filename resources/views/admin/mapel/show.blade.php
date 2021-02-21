@@ -42,10 +42,9 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header p-2">
-                <ul class="nav nav-pills">
+                <ul class="nav nav-pills" id="myTab">
                     <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Materi</a></li>
                     <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Kelas</a></li>
-
                 </ul>
             </div><!-- /.card-header -->
             <div class="card-body">
@@ -102,4 +101,17 @@
 
 </script>
 @endif
+@push('js')
+<script>
+    $(document).ready(function(){
+        $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
+            localStorage.setItem('activeTab', $(e.target).attr('href'));
+        });
+        var activeTab = localStorage.getItem('activeTab');
+        if(activeTab) {
+            $('#myTab a[href="' + activeTab + '"]').tab('show');
+        }
+    });
+</script>
+@endpush
 @endsection
