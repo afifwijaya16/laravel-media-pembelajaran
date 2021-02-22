@@ -22,7 +22,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label>Guru</label>
                                 <select name="guru_id" id="mySelect"
@@ -42,7 +42,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label>Jadwal</label>
                                 <input type="datetime-local"

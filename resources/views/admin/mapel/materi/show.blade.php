@@ -56,6 +56,7 @@
                                 <th class="text-center">Aksi</th>
                                 <th class="text-center">Nama Materi</th>
                                 <th class="text-center">Kategori</th>
+                                <th class="text-center">Kelas</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -86,6 +87,13 @@
                                 </td>
                                 <td class="text-center">{{ $hasil->nama_materi }}</td>
                                 <td class="text-center">{{ $hasil->kategori_materi }}</td>
+                                <td class="text-center">
+                                    <ul style="list-style-type: none; margin: 0; padding: 0;">
+                                        @foreach ($hasil->materikelas as $materi_kelas)
+                                        <li>{{ $materi_kelas->kelas->kelas }} </li>
+                                        @endforeach
+                                    </ul>
+                                </td>
                             </tr>
                             @endforeach
                     </table>

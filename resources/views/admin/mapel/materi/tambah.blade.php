@@ -1,6 +1,11 @@
 @extends('template_backend/home')
 @section('sub-breadcrumb', 'Tambah Materi')
 @section('content')
+<style>
+    .select2-container--default .select2-selection--multiple .select2-selection__choice {
+        background-color: #2980b9;
+    }
+</style>
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -38,6 +43,21 @@
                             </div>
                         </div>
                         <div class="col-md-12">
+                             <div class="form-group">
+                                <label>Kelas</label>
+                                <select name="kelas_id[]" class="form-control js-example-basic-multiple" required multiple="multiple">
+                                    @foreach ($kelas as $result)
+                                        <option value="{{ $result->id }}" {{in_array($result->id, old("kelas_id") ?: []) ? "selected": ""}}>{{ $result->kelas }}</option> 
+                                    @endforeach
+                                </select>
+                                @error('kelas_id')
+                                <div class="invalid-feedback">
+                                {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <label>Keterangan Materi</label>
                                 <input type="text"
@@ -65,6 +85,12 @@
     </div>
 </div>
 @push('js')
-
+<script>
+    $(document).ready(function() {
+        $('.js-example-basic-multiple').select2({
+            width: '100%'
+        });
+    });
+</script>
 @endpush
 @endsection

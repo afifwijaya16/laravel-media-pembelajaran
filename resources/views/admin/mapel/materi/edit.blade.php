@@ -1,6 +1,11 @@
 @extends('template_backend/home')
 @section('sub-breadcrumb', 'Perbarui Materi')
 @section('content')
+<style>
+    .select2-container--default .select2-selection--multiple .select2-selection__choice {
+        background-color: #2980b9;
+    }
+</style>
 <div class="row">
     <div class="col-12">
         <div class="card">
@@ -11,8 +16,8 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Nama Materi</label>
-                                <input type="hidden" name="id" value="{{ $materi->id }}" >
-                                <input type="hidden" name="mapel_id" value="{{ $id_mapel }}" >
+                                <input type="hidden" name="id" value="{{ $materi->id }}">
+                                <input type="hidden" name="mapel_id" value="{{ $id_mapel }}">
                                 <input type="text"
                                     class="form-control form-control-sm @error('nama_materi') is-invalid @enderror"
                                     value="{{ $materi->nama_materi }}" name="nama_materi"
@@ -36,6 +41,28 @@
                                     <option value="Soal" @if ($materi->kategori_materi == 'Soal')
                                         {{ 'selected' }} @endif>Soal</option>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Kelas</label>
+                                <select name="kelas_id[]" class="form-control js-example-basic-multiple" required
+                                    multiple="">
+                                    @foreach ($kelas as $result)
+                                    <option value="{{ $result->id }}" 
+                                        @foreach ($materi->materikelas as $mKelas)
+                                        @if($result->id == $mKelas->kelas_id )
+                                            selected
+                                            @endif
+                                        @endforeach
+                                        >{{ $result->kelas }}</option>
+                                    @endforeach
+                                </select>
+                                @error('kelas_id')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -66,6 +93,12 @@
     </div>
 </div>
 @push('js')
-
+<script>
+    $(document).ready(function() {
+        $('.js-example-basic-multiple').select2({
+            width: '100%'
+        });
+    });
+</script>
 @endpush
 @endsection
