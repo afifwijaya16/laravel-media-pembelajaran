@@ -5,10 +5,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                Data Mata Pelajaran
-            </div>
-            <div class="card-body">
-                <a href="{{ route('mapel.create') }}" class="btn btn-sm btn-primary float-right my-3"><i class="fa fa-plus"></i> Tambah</a>
+                <a href="{{ route('mapel.create') }}" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Tambah Data Mata Pelajaran</a>
             </div>
             <div class="card-body">
                 @include('admin/mapel/table')

@@ -5,10 +5,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                Data Guru
-            </div>
-            <div class="card-body">
-                <a href="{{ route('guru.create') }}" class="btn btn-sm btn-primary float-right my-3"><i class="fa fa-plus"></i> Tambah</a>
+                <a href="{{ route('guru.create') }}" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Tambah Data Guru</a> 
             </div>
             <div class="card-body">
                 @include('admin/guru/table')

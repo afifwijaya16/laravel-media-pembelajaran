@@ -20,4 +20,8 @@ class Mapel extends Model
     public function guru(){
         return $this->belongsTo('App\Admin', 'guru_id');
     }
+
+    public function materi(){
+        return $this->hasMany('App\Materi');
+    }
 }

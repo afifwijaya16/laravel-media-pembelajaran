@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDetailmapelsTable extends Migration
+class CreateMaterikelasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateDetailmapelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('detailmapels', function (Blueprint $table) {
+        Schema::create('materikelas', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('mapel_id');
+            $table->integer('materi_id');
             $table->integer('kelas_id');
             $table->timestamps();
         });
@@ -28,6 +28,6 @@ class CreateDetailmapelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('detailmapels');
+        Schema::dropIfExists('materikelas');
     }
 }

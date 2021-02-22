@@ -9,8 +9,6 @@ use App\User;
 use App\Detailmapel;
 use DateTime;
 use App\Admin;
-use App\Materi;
-use Validator;
 class MapelController extends Controller
 {
     public function __construct()
@@ -56,47 +54,17 @@ class MapelController extends Controller
                 'keterangan_mapel' => $request->keterangan_mapel,
                 'guru_id' => $request->guru_id,
             ]);
-
             return redirect()->route('mapel.index')->with('status', 'Berhasil Menambah Data');
-        } else if($request->submitbutton == 'tambah_materi') {
-            
-            $validator = Validator::make($request->all(), [
-                'nama_materi' => 'required',
-                'kategori_materi' => 'required',
-                'keterangan_materi' => 'required',
-                'mapel_id' => 'required',
-            ]);
-            if ($validator->fails()) {
-                return redirect()->route('mapel.show', $request->mapel_id)->with('status', 'Gagal Menambah Data Materi');
-            }
-
-            $materi = Materi::create([
-                'nama_materi' => $request->nama_materi,
-                'kategori_materi' => $request->kategori_materi,
-                'keterangan_materi' => $request->keterangan_materi,
+        } else if($request->submitbutton == 'tambah_mapel') {
+            $detail_mapel = Detailmapel::create([
                 'mapel_id' => $request->mapel_id,
+                'kelas_id' => $request->kelas_id,
             ]);
-           return redirect()->route('mapel.show', $request->mapel_id)->with('status', 'Berhasil Menambah Data Materi');
-        } else if($request->submitbutton == 'tambah_view_materi') {
-            $id_mapel =  $request->mapel_id;
-            return view('admin.mapel.materi.tambah', compact('id_mapel'));
-        } else if ($request->materi_hapus) {
-            $materi = Materi::where('id',$request->id);
-            $materi->delete();
-            return redirect()->route('mapel.show', $request->id_mapel)->with('status', 'Berhasil Menghapus Data Materi');
-        } else if($request->submitbutton == 'edit_view_materi') {
-            $id_mapel =  $request->mapel_id;
-            $materi = Materi::findorfail($request->hasil_id);
-            return view('admin.mapel.materi.edit', compact('id_mapel','materi'));
-        } else if ($request->submitbutton == 'edit_materi') {
-            $materi = Materi::findorfail($request->id);
-            $materi_data = [
-                'nama_materi' => $request->nama_materi,
-                'kategori_materi' => $request->kategori_materi,
-                'keterangan_materi' => $request->keterangan_materi,
-            ];
-            $materi->update($materi_data);
-            return redirect()->route('mapel.show', $request->mapel_id)->with('status', 'Berhasil Mengubah Data Materi');
+            return back()->withInput()->with('status', 'Berhasil Menambah Data Kelas');
+        } else if ($request->submitbutton == 'hapus_mapel') {
+            $detailmapel = Detailmapel::where('id',$request->id);
+            $detailmapel->delete();
+            return back()->withInput()->with('status', 'Berhasil Menghapus Data Kelas');
         }
     }
 

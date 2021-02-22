@@ -4,15 +4,15 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Detailmapel extends Model
+class Materikelas extends Model
 {
     protected $fillable = [
-        'mapel_id',
+        'materi_id',
         'kelas_id',
     ];
 
-    public function mapel(){
-        return $this->belongsTo('App\Mapel', 'mapel_id');
+    public function materi(){
+        return $this->belongsTo('App\Materi', 'materi_id');
     }
 
     public function kelas(){

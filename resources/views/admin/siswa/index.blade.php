@@ -5,10 +5,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                Data Siswa
-            </div>
-            <div class="card-body">
-                <a href="{{ route('user.create') }}" class="btn btn-sm btn-info float-right"><i class="fa fa-plus"></i> Tambah</a>
+                <a href="{{ route('user.create') }}" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Tambah Data Siswa </a>
             </div>
             <div class="card-body">
                 @include('admin/siswa/table')
