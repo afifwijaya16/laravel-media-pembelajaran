@@ -19,6 +19,10 @@ class CreateMaterisTable extends Migration
             $table->string('nama_materi');
             $table->string('kategori_materi');
             $table->string('keterangan_materi');
+            $table->string('berkas_materi')->nullable();
+            $table->string('url_video_materi')->nullable();
+            $table->string('type_berkas_materi')->default('Image');
+            $table->string('status_materi')->default('Aktif');
             $table->timestamps();
         });
     }

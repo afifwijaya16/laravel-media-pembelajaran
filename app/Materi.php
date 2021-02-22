@@ -10,6 +10,10 @@ class Materi extends Model
         'nama_materi',
         'kategori_materi',
         'keterangan_materi',
+        'berkas_materi',
+        'type_berkas_materi',
+        'url_video_materi',
+        'status_materi',
         'mapel_id',
     ];
 

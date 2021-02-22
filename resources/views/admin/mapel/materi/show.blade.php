@@ -57,6 +57,8 @@
                                 <th class="text-center">Nama Materi</th>
                                 <th class="text-center">Kategori</th>
                                 <th class="text-center">Kelas</th>
+                                <th class="text-center">Berkas Materi</th>
+                                <th class="text-center">Url Video</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -94,6 +96,17 @@
                                         @endforeach
                                     </ul>
                                 </td>
+                                <td class="text-center">
+                                    @if($hasil->type_berkas_materi == "Image")
+                                        <img src="{{ asset($hasil->berkas_materi) }}" style="height:50px;width:50px;" class="img-fluid"/>
+                                    @elseif($hasil->type_berkas_materi == "PDF")
+                                        <a href="{{ asset($hasil->berkas_materi) }}" target="_blank" class="btn btn-sm bg-purple"><i class="fa fa-file"></i></a>
+                                    @endif
+                                </td>
+                                <td class="text-center">
+                                    <!-- <iframe width="420" height="315" src="https://youtu.be/embed/5jouDCyFOQo?list=RDMMO489siBfoxA" frameborder="0" allowfullscreen></iframe> -->
+                                    <a href="{{ $hasil->url_video_materi }}" target="_blank" class="btn btn-sm btn-info"><i class="fas fa-video"></i></a>
+                                </td>
                             </tr>
                             @endforeach
                     </table>
@@ -106,8 +119,7 @@
 <script>
     Swal.fire({
         icon: 'success',
-        title: '{{ session('
-        status ') }}',
+        title: '{{ session('status') }}',
     })
 
 </script>

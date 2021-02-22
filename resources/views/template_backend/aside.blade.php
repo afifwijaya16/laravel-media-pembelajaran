@@ -2,20 +2,18 @@
  <aside class="main-sidebar elevation-4 sidebar-light-warning">
      <!-- Brand Logo -->
     @if(Auth::guard('admin')->check())
-        <a href="{{ route('admin.home') }}" class="brand-link">
+        <a href="{{ route('admin.home') }}" class="brand-link navbar-danger">
             <img src="{{ asset('asset/dist/img/AdminLTELogo.png')}}" alt="Logo"
                 class="brand-image img-circle elevation-3" style="opacity: .8">
-            <span class="brand-text font-weight-light">Media Pembelajaran</span>
+            <span class="brand-text font-weight-dark">Media Pembelajaran</span>
         </a> 
     @elseif(Auth::guard('web')->check())
-        <a href="{{ route('home') }}" class="brand-link">
+        <a href="{{ route('home') }}" class="brand-link navbar-danger">
             <img src="{{ asset('asset/dist/img/AdminLTELogo.png')}}" alt="Logo"
                 class="brand-image img-circle elevation-3" style="opacity: .8">
-            <span class="brand-text font-weight-light">Media Pembelajaran</span>
+            <span class="brand-text font-weight-dark">Media Pembelajaran</span>
         </a>
     @endif
-     
-
      <!-- Sidebar -->
      <div class="sidebar">
          <!-- Sidebar Menu -->

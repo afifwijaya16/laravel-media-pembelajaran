@@ -10,10 +10,10 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('mapel.store') }}" method="POST">
+                <form action="{{ route('mapel.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label>Nama Materi</label>
                                 <input type="hidden" name="mapel_id" value="{{ $id_mapel }}" >
@@ -28,7 +28,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label>Kategori</label>
                                 <select
@@ -40,6 +40,43 @@
                                     <option value="Soal" @if (old('kategori_materi')=="Soal" ) {{ 'selected' }} @endif>
                                         Soal</option>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Berkas Materi</label>
+                                <input type="file"
+                                    class="form-control form-control-sm"
+                                    value="{{ old('berkas_materi')}}" name="berkas_materi"
+                                    placeholder="Masukan Berkas Materi">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Type Berkas Materi</label>
+                                <select
+                                    class="form-control form-control-sm @error('type_berkas_materi') is-invalid @enderror"
+                                    name="type_berkas_materi">
+                                    <option value="">Pilih Type</option>
+                                    <option value="PDF" @if (old('type_berkas_materi')=="PDF" ) {{ 'selected' }}
+                                        @endif>PDF</option>
+                                    <option value="Image" @if (old('type_berkas_materi')=="Image" ) {{ 'selected' }} @endif>
+                                        Image</option>
+                                </select>
+                            </div>
+                        </div>
+                         <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Url Video Materi</label>
+                                <input type="text"
+                                    class="form-control form-control-sm @error('url_video_materi') is-invalid @enderror"
+                                    value="{{ old('url_video_materi')}}" name="url_video_materi"
+                                    placeholder="Masukan Url Video Materi " required>
+                                @error('url_video_materi')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -57,13 +94,14 @@
                                 @enderror
                             </div>
                         </div>
+
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Keterangan Materi</label>
-                                <input type="text"
-                                    class="form-control form-control-sm @error('keterangan_materi') is-invalid @enderror"
-                                    value="{{ old('keterangan_materi')}}" name="keterangan_materi"
-                                    placeholder="Masukan Keterangan Materi" required>
+                                <textarea id="textAreaEditor"
+                                    class="form-control  @error('keterangan_materi') is-invalid @enderror"
+                                    rows="3" name="keterangan_materi"
+                                    placeholder="Masukan Keterangan" required>{{ old('keterangan_materi')}}</textarea>
                                 @error('keterangan_materi')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -86,6 +124,7 @@
 </div>
 @push('js')
 <script>
+    CKEDITOR.replace('textAreaEditor');
     $(document).ready(function() {
         $('.js-example-basic-multiple').select2({
             width: '100%'

@@ -11,6 +11,7 @@ use App\Admin;
 use App\Materi;
 use App\Materikelas;
 use Validator;
+use File;
 class MapelController extends Controller
 {
     public function __construct()
@@ -72,12 +73,26 @@ class MapelController extends Controller
                 return redirect()->route('mapel.show', $request->mapel_id)->with('status', 'Gagal Menambah Data Materi');
             }
 
+            $berkas_materi = $request->berkas_materi;
+            if(!empty($berkas_materi)) {
+                $new_berkas_materi = time().'.'.$berkas_materi->getClientOriginalExtension();
+            } else {
+                $new_berkas_materi = 'no-photo.jpg';
+            }
+
             $materi = Materi::create([
                 'nama_materi' => $request->nama_materi,
                 'kategori_materi' => $request->kategori_materi,
                 'keterangan_materi' => $request->keterangan_materi,
+                'type_berkas_materi' => $request->type_berkas_materi,
+                'berkas_materi' => 'uploads/berkas_materi/'.$new_berkas_materi,
+                'url_video_materi' => $request->url_video_materi,
                 'mapel_id' => $request->mapel_id,
             ]);
+
+            if(!empty($berkas_materi)) {
+                $berkas_materi->move('uploads/berkas_materi/', $new_berkas_materi);
+            }
 
             $kelas = $request->kelas_id;
             $data = [];
@@ -100,7 +115,6 @@ class MapelController extends Controller
         // hapus materi
         else if ($request->materi_hapus) {
             $materi = Materi::where('id',$request->id);
-
             $materiKelas = Materikelas::where('materi_id',$request->id);
             if ($materiKelas){
                 $materi->delete();
@@ -120,11 +134,33 @@ class MapelController extends Controller
         // editt materi 
         else if ($request->submitbutton == 'edit_materi') {
             $materi = Materi::findorfail($request->id);
-            $materi_data = [
-                'nama_materi' => $request->nama_materi,
-                'kategori_materi' => $request->kategori_materi,
-                'keterangan_materi' => $request->keterangan_materi,
-            ];
+
+            if($request->has('berkas_materi')) {
+                File::delete($materi->berkas_materi);
+                $berkas_materi = $request->berkas_materi;
+                $new_berkas_materi = time().'.'.$berkas_materi->getClientOriginalExtension();
+                $berkas_materi->move('uploads/berkas_materi/', $new_berkas_materi);
+
+                $materi_data = [
+                    'nama_materi' => $request->nama_materi,
+                    'kategori_materi' => $request->kategori_materi,
+                    'keterangan_materi' => $request->keterangan_materi,
+                    'type_berkas_materi' => $request->type_berkas_materi,
+                    'berkas_materi' => 'uploads/berkas_materi/'.$new_berkas_materi,
+                    'url_video_materi' => $request->url_video_materi,
+                    'mapel_id' => $request->mapel_id,
+                ];
+            } else {
+                $materi_data = [
+                    'nama_materi' => $request->nama_materi,
+                    'kategori_materi' => $request->kategori_materi,
+                    'keterangan_materi' => $request->keterangan_materi,
+                    'type_berkas_materi' => $request->type_berkas_materi,
+                    'url_video_materi' => $request->url_video_materi,
+                    'mapel_id' => $request->mapel_id,
+                ];
+            }
+            
             $materiKelas = materiKelas::where('materi_id', $request->id);;
             $materiKelas->delete();
 
