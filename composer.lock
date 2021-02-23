@@ -4,8 +4,58 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d1e7445639eb0544cb95b6c076ac204e",
+    "content-hash": "98d33f3347908d9c41ab65eaa73b1166",
     "packages": [
+        {
+            "name": "cohensive/embed",
+            "version": "v5.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/KaneCohen/embed.git",
+                "reference": "efbfbd529497f18471d4ac4c2aea7b6b8eb1a336"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/KaneCohen/embed/zipball/efbfbd529497f18471d4ac4c2aea7b6b8eb1a336",
+                "reference": "efbfbd529497f18471d4ac4c2aea7b6b8eb1a336",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Cohensive\\Embed": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Kane Cohen",
+                    "email": "kanecohen@gmail.com"
+                }
+            ],
+            "description": "Media Embed (for Laravel or as a standalone).",
+            "keywords": [
+                "embed",
+                "laravel",
+                "media",
+                "vimeo",
+                "youtube"
+            ],
+            "support": {
+                "issues": "https://github.com/KaneCohen/embed/issues",
+                "source": "https://github.com/KaneCohen/embed/tree/master"
+            },
+            "time": "2018-05-16T20:03:36+00:00"
+        },
         {
             "name": "dnoegel/php-xdg-base-dir",
             "version": "v0.1.1",
@@ -5943,5 +5993,5 @@
         "php": "^7.2"
     },
     "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "plugin-api-version": "2.0.0"
 }
