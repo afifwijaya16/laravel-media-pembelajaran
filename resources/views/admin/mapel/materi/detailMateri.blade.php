@@ -1,35 +1,60 @@
 @extends('template_backend/home')
 @section('sub-breadcrumb', 'Detail Materi')
 @section('content')
+<style>
+.embed-responsive {
+    position: relative;
+    display: block;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+}
+</style>
 <div class="row">
     <div class="col-12">
         <div class="card">
+            <div class="card-header">
+                <a href="{{ route('mapel.show', $mapel->id) }}" class="btn btn-xs btn-primary"><i class="fa fa-arrow-left"></i> Kembali</a>
+            </div>
             <div class="card-body">
-                <div class="row invoice-info">
-                    <div class="col-sm-12 invoice-col">
+                <div class="row">
+                    <div class="col-sm-12">
                         <table class="table table-sm">
                             <tr>
                                 <td><b>Mata Pelajaran</b></td>
-                                <td><b>#{{ $mapel->nama_mapel }}</b></td>
+                                <td><b>{{ $mapel->nama_mapel }}</b></td>
                             </tr>
                             <tr>
                                 <td><b>Nama Materi</b></td>
-                                <td><b>#{{ $materi->nama_materi }}</b></td>
+                                <td><b>{{ $materi->nama_materi }}</b></td>
                             </tr>
                             <tr>
-                                <td><b>Jadwal Mata Pelajaran</b></td>
-                                <td><b>{{ $materi->jadwal_materi }}</b></td>
+                                <td><b>Jadwal</b></td>
+                                <td><b>{{ $mapel->hari_mapel }}, {{ $mapel->pukul_mapel }}</b></td>
                             </tr>
                             <tr>
-                                <td><b>Keterangan Mata Pelajaran</b></td>
+                                <td><b>Keterangan</b></td>
                                 <td><b>{!! $materi->keterangan_materi !!}</b></td>
                             </tr>
                         </table>
+                    </div>
+                    <div class="col-sm-12">
+                        @if($materi->type_berkas_materi == "Image")
+                            <img src="{{ asset($materi->berkas_materi) }}" style="height:50px;width:50px;" class="img-fluid"/>
+                        @elseif($materi->type_berkas_materi == "PDF")
+                            <a href="{{ asset($materi->berkas_materi) }}" target="_blank" class="btn btn-sm bg-purple"><i class="fa fa-file"></i> Download Materi</a>
+                            <br>
+                            <br>
+                            <div class='embed-responsive' style='padding-bottom:150%'>
+                                <object data='{{ asset($materi->berkas_materi) }}' type='application/pdf' width='100%' height='100%'></object>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    @if($materi->kategori_materi == 'Soal')
     <div class="col-12">
         <div class="card">
             <div class="card-header">
@@ -40,6 +65,7 @@
             </div>
         </div>
     </div>
+    @endif
 </div>
 @push('js')
 @endpush
