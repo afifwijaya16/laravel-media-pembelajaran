@@ -37,31 +37,30 @@
                         </table>
                     </div>
                     <div class="col-sm-12">
-                        <div class="media">
-                            <div class="media-body">
-
-                            </div>
-                        </div>
+                        @if(!$materi->url_video_materi == '-')
                         <div class="timeline">
                             <div>
                                 <i class="fas fa-video bg-maroon"></i>
                                 <div class="timeline-item">
                                     <h3 class="timeline-header">Video Materi</h3>
                                     <div class="timeline-body">
+                                        
                                         <div class="embed-responsive embed-responsive-16by9">
                                             {!! Embed::make($materi->url_video_materi)->parseUrl()->getIframe() !!}
                                         </div>
+                                       
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-sm-12">
             @if($materi->type_berkas_materi == "Image")
-            <img src="{{ asset($materi->berkas_materi) }}" style="height:50px;width:50px;" class="img-fluid" />
+                <img src="{{ asset($materi->berkas_materi) }}" style="height:50px;width:50px;" class="img-fluid" />
             @elseif($materi->type_berkas_materi == "PDF")
             <!-- <div class='embed-responsive' style='padding-bottom:150%'>
                 <object data='{{ asset($materi->berkas_materi) }}' type='application/pdf' width='100%'

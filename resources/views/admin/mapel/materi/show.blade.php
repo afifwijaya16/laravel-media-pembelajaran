@@ -25,7 +25,7 @@
                             </tr>
                             <tr>
                                 <td><b>Jadwal Mata Pelajaran</b></td>
-                                <td><b>{{ $mapel->jadwal_mapel }}</b></td>
+                                <td><b>{{ $mapel->hari_mapel }}, {{ $mapel->pukul_mapel }}</b></td>
                             </tr>
                             <tr>
                                 <td><b>Keterangan Mata Pelajaran</b></td>
