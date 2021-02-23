@@ -40,12 +40,18 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <form action="{{ route('mapel.store') }}" role="form" method="POST">
-                    @csrf
-                    <input type="hidden" class="form-control" name="mapel_id" value="{{ $mapel->id }}">
-                    <button type="submit" value="tambah_view_materi" class="btn btn-xs btn-primary"
-                        name="submitbutton"><i class="fa fa-plus"></i> Tambah Data Materi</button>
-                </form>
+                <div class="btn-group">
+                    
+                    <a href="{{ route('mapel.index') }}" class="btn btn-warning btn-xs"><i
+                        class="fa fa-arrow-left"></i> Kembali</a>
+                        &nbsp;
+                    <form action="{{ route('mapel.store') }}" role="form" method="POST">
+                        @csrf
+                        <input type="hidden" class="form-control" name="mapel_id" value="{{ $mapel->id }}">
+                        <button type="submit" value="tambah_view_materi" class="btn btn-xs btn-primary float-right"
+                            name="submitbutton"><i class="fa fa-plus"></i> Tambah Data Materi</button>
+                    </form>
+                </div>
             </div>
             <div class="card-body">
                 <div class="table-responsive">

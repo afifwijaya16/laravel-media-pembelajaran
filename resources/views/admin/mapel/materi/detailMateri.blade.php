@@ -28,7 +28,7 @@
                             <tr>
                                 <td><b>Materi </b></td>
                                 <td> <a href="{{ asset($materi->berkas_materi) }}" target="_blank"
-                                        class="btn btn-sm bg-purple"><i class="fa fa-file"></i> Download Materi</a></td>
+                                        class="btn btn-xs bg-purple"><i class="fa fa-file"></i> Download Materi</a></td>
                             </tr>
                             <tr>
                                 <td><b>Keterangan</b></td>
