@@ -30,6 +30,9 @@ Route::post('/user/logout', 'Auth\LoginController@logoutUser')->name('user.logou
 Route::get('/profil', 'UserprofilController@index')->name('profil');
 Route::put('/update/profil/{id}', 'UserprofilController@update')->name('update.profil');
 
+
+Route::resource('/mapel-user','UsermapelController')->names('mapel_user');;
+
 Route::prefix('admin')->group(function() {
     Route::get('/', 'AdminController@index')->name('admin.home');
     

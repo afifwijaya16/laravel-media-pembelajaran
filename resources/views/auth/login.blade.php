@@ -16,14 +16,14 @@
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
                         <div class="form-group row">
-                            <label for="nik"
-                                class="col-md-4 col-form-label text-md-right">{{ __('NIK/Email') }}</label>
+                            <label for="no_user"
+                                class="col-md-4 col-form-label text-md-right">{{ __('No User/Email') }}</label>
 
                             <div class="col-md-6">
-                                <input id="nik" type="nik" class="form-control @error('nik') is-invalid @enderror"
-                                    name="nik" value="{{ old('nik') }}" placeholder="Masukan NIK/Email" required autocomplete="nik" autofocus>
+                                <input id="no_user" type="no_user" class="form-control @error('no_user') is-invalid @enderror"
+                                    name="no_user" value="{{ old('no_user') }}" placeholder="Masukan No User/Email" required autocomplete="no_user" autofocus>
 
-                                @error('nik')
+                                @error('no_user')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -58,9 +58,6 @@
                                 </div>
                             </div>
                         </div> -->
-
-                        
-
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

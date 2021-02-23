@@ -38,13 +38,13 @@ class LoginController extends Controller
     {   
         $input = $request->all();
         $this->validate($request, [
-            'nik' => 'required',
+            'no_user' => 'required',
             'password' => 'required',
         ]);
 
-        $fieldType = filter_var($request->nik, FILTER_VALIDATE_EMAIL) ? 'email' : 'nik';
+        $fieldType = filter_var($request->no_user, FILTER_VALIDATE_EMAIL) ? 'email' : 'no_user';
 
-        if(auth()->attempt(array($fieldType => $input['nik'], 'password' => $input['password']))){
+        if(auth()->attempt(array($fieldType => $input['no_user'], 'password' => $input['password']))){
             return redirect()->route('home');
         } else {
             return redirect()->route('login')->with('status','Email-Address And Password Are Wrong.');

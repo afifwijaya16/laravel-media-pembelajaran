@@ -5,10 +5,8 @@
 <script>
     Swal.fire({
         icon: 'success',
-        title: '{{ session('
-        status ') }}',
+        title: '{{ session('status') }}',
     })
-
 </script>
 @endif
 <div class="row">

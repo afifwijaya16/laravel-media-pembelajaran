@@ -26,5 +26,5 @@
   <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
 
 </head>
-<body class="sidebar-mini layout-fixed text-sm">
+<body class="sidebar-mini layout-fixed text-sm layout-navbar-fixed">
 <div class="wrapper">

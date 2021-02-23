@@ -256,13 +256,7 @@ class MapelController extends Controller
     public function destroy($id)
     {
         $mapel = Mapel::findorfail($id);
-        $detail_mapel = Detailmapel::where('mapel_id',$id);
-        if ($detail_mapel){
-            $mapel->delete();
-        } else {
-            $mapel->delete();
-            $detail_mapel->delete();
-        }
+        $mapel->delete();
         
         return redirect()->route('mapel.index')->with('status', 'Berhasil Menghapus data');
     }
