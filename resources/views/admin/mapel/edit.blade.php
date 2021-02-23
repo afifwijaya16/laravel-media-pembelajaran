@@ -23,22 +23,9 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label>Jadwal</label>
-                                <input type="datetime-local"
-                                    class="form-control form-control-sm @error('jadwal_mapel') is-invalid @enderror"
-                                    value="{{ $data_tanggal }}" name="jadwal_mapel">
-                                @error('jadwal_mapel')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Jadwal</label>
+                                <label>Pilih guru</label>
                                 <select name="guru_id" id="mySelect"
                                     class="js-example-basic-single form-control form-control-sm @error('guru_id') is-invalid @enderror">
                                     <option selected disabled>-- Pilih Guru--</option>
@@ -54,6 +41,49 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Hari</label>
+                                <select
+                                    class="form-control form-control-sm @error('hari_mapel') is-invalid @enderror"
+                                    name="hari_mapel">
+                                    <option value="">Pilih Hari</option>
+                                    <option value="Senin" @if ($mapel->hari_mapel == 'Senin')
+                                        {{ 'selected' }} @endif>Senin</option>
+                                    <option value="Selasa" @if ($mapel->hari_mapel == 'Selasa')
+                                        {{ 'selected' }} @endif>Selasa</option>
+                                    <option value="Rabu" @if ($mapel->hari_mapel == 'Rabu')
+                                        {{ 'selected' }} @endif>Rabu</option>
+                                    <option value="Kamis" @if ($mapel->hari_mapel == 'Kamis')
+                                        {{ 'selected' }} @endif>Kamis</option>
+                                    <option value="Jumat" @if ($mapel->hari_mapel == 'Jumat')
+                                        {{ 'selected' }} @endif>Jumat</option>
+                                    <option value="Sabtu" @if ($mapel->hari_mapel == 'Sabtu')
+                                        {{ 'selected' }} @endif>Sabtu</option>
+                                    <option value="Minggu" @if ($mapel->hari_mapel == 'Minggu')
+                                        {{ 'selected' }} @endif>Minggu</option>
+                                </select>
+                                @error('hari_mapel')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Jadwal</label>
+                                <input type="time"
+                                    class="form-control form-control-sm @error('pukul_mapel') is-invalid @enderror"
+                                    value="{{ $mapel->pukul_mapel }}" name="pukul_mapel">
+                                @error('pukul_mapel')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                        </div>
+                        
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label>Keterangan</label>

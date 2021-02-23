@@ -8,7 +8,8 @@ class Mapel extends Model
 {
     protected $fillable = [
         'nama_mapel',
-        'jadwal_mapel',
+        'pukul_mapel',
+        'hari_mapel',
         'keterangan_mapel',
         'guru_id',
     ];

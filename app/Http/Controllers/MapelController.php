@@ -48,13 +48,15 @@ class MapelController extends Controller
         if ($request->submitbutton == 'tambah') {
             $this->validate($request, [
                 'nama_mapel' => 'required',
-                'jadwal_mapel' => 'required',
+                'pukul_mapel' => 'required',
+                'hari_mapel' => 'required',
                 'keterangan_mapel' => 'required',
                 'guru_id' => 'required',
             ]);
             $mapel = Mapel::create([
                 'nama_mapel' => $request->nama_mapel,
-                'jadwal_mapel' => $request->jadwal_mapel,
+                'pukul_mapel' => $request->pukul_mapel,
+                'hari_mapel' => $request->hari_mapel,
                 'keterangan_mapel' => $request->keterangan_mapel,
                 'guru_id' => $request->guru_id,
             ]);
@@ -177,6 +179,13 @@ class MapelController extends Controller
             $materi->update($materi_data);
             return redirect()->route('mapel.show', $request->mapel_id)->with('status', 'Berhasil Mengubah Data Materi');
         }
+        // show detail materi
+        else if($request->submitbutton == 'show_detail_materi') {
+            $id_mapel =  $request->mapel_id;
+            $mapel = Mapel::findorfail($request->mapel_id);
+            $materi = Materi::findorfail($request->hasil_id);
+            return view('admin.mapel.materi.detailMateri', compact('mapel','id_mapel','materi'));
+        }
     }
 
     /**
@@ -230,7 +239,8 @@ class MapelController extends Controller
     {
         $this->validate($request, [
             'nama_mapel' => 'required',
-            'jadwal_mapel' => 'required',
+            'pukul_mapel' => 'required',
+            'hari_mapel' => 'required',
             'keterangan_mapel' => 'required',
             'guru_id' => 'required',
         ]);
@@ -238,7 +248,8 @@ class MapelController extends Controller
         $mapel = Mapel::findorfail($id);
         $mapel_data = [
             'nama_mapel' => $request->nama_mapel,
-            'jadwal_mapel' => $request->jadwal_mapel,
+            'pukul_mapel' => $request->pukul_mapel,
+            'hari_mapel' => $request->hari_mapel,
             'guru_id' => $request->guru_id,
         ];
         

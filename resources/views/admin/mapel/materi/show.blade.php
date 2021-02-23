@@ -71,6 +71,13 @@
                                             @csrf
                                             <input type="hidden" name="hasil_id" value="{{ $hasil->id }}">
                                             <input type="hidden" name="mapel_id" value="{{ $mapel->id }}">
+                                            <button type="submit" value="show_detail_materi" class="btn btn-xs btn-info"
+                                                name="submitbutton"><i class="fa fa-eye"></i></button>
+                                        </form>
+                                        <form action="{{ route('mapel.store') }}" role="form" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="hasil_id" value="{{ $hasil->id }}">
+                                            <input type="hidden" name="mapel_id" value="{{ $mapel->id }}">
                                             <button type="submit" value="edit_view_materi" class="btn btn-xs btn-warning"
                                                 name="submitbutton"><i class="fa fa-edit"></i></button>
                                         </form>

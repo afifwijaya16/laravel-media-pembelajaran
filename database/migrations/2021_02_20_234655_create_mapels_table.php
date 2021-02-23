@@ -16,7 +16,8 @@ class CreateMapelsTable extends Migration
         Schema::create('mapels', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nama_mapel');
-            $table->timestamp('jadwal_mapel');
+            $table->time('pukul_mapel');
+            $table->string('hari_mapel');
             $table->string('keterangan_mapel');
             $table->integer('guru_id');
             $table->timestamps();

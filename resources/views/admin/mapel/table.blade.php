@@ -14,7 +14,7 @@
             <tr class="table-sm">
                 <td class="text-center">{{ $loop->iteration }}</td>
                 <td class="text-center">{{ $hasil->nama_mapel }}</td>
-                <td class="text-center">{{ $hasil->jadwal_mapel }}</td>
+                <td class="text-center">{{ $hasil->hari_mapel }}, {{ $hasil->pukul_mapel }}</td>
                 <td class="text-center">{{ $hasil->guru->name }}</td>
                 <td class="text-center">
                     <form action="{{ route('mapel.destroy', $hasil->id) }}" id="form-delete-{{ $hasil->id}}" role="form"
