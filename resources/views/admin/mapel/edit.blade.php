@@ -87,7 +87,7 @@
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label>Keterangan</label>
-                                <textarea id="textAreaEditor"
+                                <textarea 
                                     class="form-control  @error('keterangan_mapel') is-invalid @enderror" rows="3"
                                     name="keterangan_mapel"
                                     placeholder="Masukan Keterangan">{{ $mapel->keterangan_mapel }}</textarea>
@@ -111,7 +111,7 @@
 </div>
 @push('js')
 <script>
-    CKEDITOR.replace('textAreaEditor');
+    
     $(document).ready(function() {
         $('.js-example-basic-single').select2();
     });

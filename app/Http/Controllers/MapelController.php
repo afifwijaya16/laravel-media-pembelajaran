@@ -250,6 +250,7 @@ class MapelController extends Controller
             'nama_mapel' => $request->nama_mapel,
             'pukul_mapel' => $request->pukul_mapel,
             'hari_mapel' => $request->hari_mapel,
+            'keterangan_mapel' => $request->keterangan_mapel,
             'guru_id' => $request->guru_id,
         ];
         
