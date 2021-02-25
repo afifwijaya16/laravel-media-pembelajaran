@@ -111,7 +111,7 @@
                                 </td>
                                 <td class="text-center">
                                     @if($hasil->type_berkas_materi == "Image")
-                                        <img src="{{ asset($hasil->berkas_materi) }}" style="height:50px;width:50px;" class="img-fluid"/>
+                                        <!-- <img src="{{ asset($hasil->berkas_materi) }}" style="height:50px;width:50px;" class="img-fluid"/> -->
                                     @elseif($hasil->type_berkas_materi == "PDF")
                                         <a href="{{ asset($hasil->berkas_materi) }}" target="_blank" class="btn btn-sm bg-purple"><i class="fa fa-file"></i></a>
                                     @endif
@@ -128,11 +128,11 @@
         </div>
     </div>
 </div>
-@if (session('status'))
+@if (session('status_materi'))
 <script>
     Swal.fire({
         icon: 'success',
-        title: '{{ session('status') }}',
+        title: '{{ session('status_materi') }}',
     })
 
 </script>

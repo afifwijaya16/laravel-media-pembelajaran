@@ -10,8 +10,10 @@ use DateTime;
 use App\Admin;
 use App\Materi;
 use App\Materikelas;
+use App\Soalmateri;
 use Validator;
 use File;
+use Illuminate\Support\Facades\DB;
 class MapelController extends Controller
 {
     public function __construct()
@@ -72,7 +74,7 @@ class MapelController extends Controller
                 'mapel_id' => 'required',
             ]);
             if ($validator->fails()) {
-                return redirect()->route('mapel.show', $request->mapel_id)->with('status', 'Gagal Menambah Data Materi');
+                return redirect()->route('mapel.show', $request->mapel_id)->with('status_materi', 'Gagal Menambah Data Materi');
             }
 
             $berkas_materi = $request->berkas_materi;
@@ -106,7 +108,7 @@ class MapelController extends Controller
             }
             Materikelas::insert($data);
 
-           return redirect()->route('mapel.show', $request->mapel_id)->with('status', 'Berhasil Menambah Data Materi');
+           return redirect()->route('mapel.show', $request->mapel_id)->with('status_materi', 'Berhasil Menambah Data Materi');
         } 
         // view tambah materi
         else if($request->submitbutton == 'tambah_view_materi') {
@@ -124,7 +126,7 @@ class MapelController extends Controller
             } else {
                 $materi->delete();
             }
-            return redirect()->route('mapel.show', $request->id_mapel)->with('status', 'Berhasil Menghapus Data Materi');
+            return redirect()->route('mapel.show', $request->id_mapel)->with('status_materi', 'Berhasil Menghapus Data Materi');
         } 
         // view edit materi
         else if($request->submitbutton == 'edit_view_materi') {
@@ -177,15 +179,72 @@ class MapelController extends Controller
             Materikelas::insert($data);
 
             $materi->update($materi_data);
-            return redirect()->route('mapel.show', $request->mapel_id)->with('status', 'Berhasil Mengubah Data Materi');
+            return redirect()->route('mapel.show', $request->mapel_id)->with('status_materi', 'Berhasil Mengubah Data Materi');
         }
         // show detail materi
         else if($request->submitbutton == 'show_detail_materi') {
+
+            $id_mapel =  $request->mapel_id;
+            $materi_id =  $request->hasil_id;
+            $mapel = Mapel::findorfail($request->mapel_id);
+            $materi = Materi::findorfail($materi_id);
+            $soal_materi = DB::table('soalmateris')
+                ->join('materis', 'materis.id', '=', 'soalmateris.materi_id')
+                ->join('mapels', 'mapels.id', '=', 'soalmateris.mapel_id')
+                ->select('soalmateris.*')
+                ->where('soalmateris.materi_id', $request->hasil_id)
+                ->where('soalmateris.mapel_id', $request->mapel_id)
+                ->get();
+                // dd($soal_materi);
+            return view('admin.mapel.materi.detailMateri', compact('mapel','id_mapel','materi','soal_materi'));
+        }
+        // save soal
+        else if($request->submitbutton == 'save_soal_materi') {
+            $soal_materi = Soalmateri::create([
+                'materi_id' => $request->hasil_id,
+                'mapel_id' => $request->mapel_id,
+                'soal_materi' => $request->soal_materi,
+                'jawaban_soal_a' => $request->jawaban_soal_a,
+                'jawaban_soal_b' => $request->jawaban_soal_b,
+                'jawaban_soal_c' => $request->jawaban_soal_c,
+                'jawaban_soal_d' => $request->jawaban_soal_d,
+                'jawaban_soal_e' => $request->jawaban_soal_e,
+                'jawaban_benar' => $request->jawaban_benar,
+            ]);
+            if($soal_materi) {
+                $request->session()->flash('status_soal', 'Berhasil Menambah Soal');
+            }
             $id_mapel =  $request->mapel_id;
             $mapel = Mapel::findorfail($request->mapel_id);
             $materi = Materi::findorfail($request->hasil_id);
-            return view('admin.mapel.materi.detailMateri', compact('mapel','id_mapel','materi'));
+            $soal_materi = DB::table('soalmateris')
+                ->join('materis', 'soalmateris.materi_id', '=', 'materis.id')
+                ->join('mapels', 'soalmateris.mapel_id', '=', 'mapels.id')
+                ->select('soalmateris.*')
+                ->where('soalmateris.materi_id', $request->hasil_id)
+                ->where('soalmateris.mapel_id', $request->mapel_id)
+                ->get();
+            return view('admin.mapel.materi.detailMateri', compact('mapel','id_mapel','materi','soal_materi'));
         }
+        // hapus soal
+        else if ($request->soal_hapus_data) {
+            $soal_materi = Soalmateri::where('id',$request->id);
+            $soal_materi->delete();
+            if($soal_materi) {
+                $request->session()->flash('status_soal', 'Berhasil Menghapus Soal');
+            }
+            $id_mapel =  $request->mapel_id;
+            $mapel = Mapel::findorfail($request->mapel_id);
+            $materi = Materi::findorfail($request->hasil_id);
+            $soal_materi = DB::table('soalmateris')
+                ->join('materis', 'soalmateris.materi_id', '=', 'materis.id')
+                ->join('mapels', 'soalmateris.mapel_id', '=', 'mapels.id')
+                ->select('soalmateris.*')
+                ->where('soalmateris.materi_id', $request->hasil_id)
+                ->where('soalmateris.mapel_id', $request->mapel_id)
+                ->get();
+            return view('admin.mapel.materi.detailMateri', compact('mapel','id_mapel','materi','soal_materi'));
+        } 
     }
 
     /**

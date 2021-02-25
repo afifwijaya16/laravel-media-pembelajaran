@@ -27,8 +27,12 @@
                             </tr>
                             <tr>
                                 <td><b>Materi </b></td>
-                                <td> <a href="{{ asset($materi->berkas_materi) }}" target="_blank"
-                                        class="btn btn-xs bg-purple"><i class="fa fa-file"></i> Download Materi</a></td>
+                                <td> 
+                                    @if($materi->kategori_materi == 'Materi')
+                                        <a href="{{ asset($materi->berkas_materi) }}" target="_blank"
+                                                class="btn btn-xs bg-purple"><i class="fa fa-file"></i> Download Materi</a>
+                                    @endif
+                                </td>
                             </tr>
                             <tr>
                                 <td><b>Keterangan</b></td>
@@ -80,7 +84,51 @@
             </button>
         </div>
         <div class="card-body">
+            <div class="table-responsive">
+                <table id="dataTable" class="table table-sm table-bordered table-striped" width="100%">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Soal</th>
+                            <th>a</th>
+                            <th>b</th>
+                            <th>c</th>
+                            <th>d</th>
+                            <th>e</th>
+                            <th>Jawaban</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($soal_materi as $result => $hasil)
+                        <tr class="table-sm">
+                            <td class="text-center">{{ $loop->iteration }}</td>
+                            <td class="text-center">{{ $hasil->soal_materi }}</td>
+                            <td class="text-center">{{ $hasil->jawaban_soal_a }}</td>
+                            <td class="text-center">{{ $hasil->jawaban_soal_b }}</td>
+                            <td class="text-center">{{ $hasil->jawaban_soal_c }}</td>
+                            <td class="text-center">{{ $hasil->jawaban_soal_d }}</td>
+                            <td class="text-center">{{ $hasil->jawaban_soal_e }}</td>
+                            <td class="text-center">{{ $hasil->jawaban_benar }}</td>
+                            <td class="text-center">
+                                <form action="{{ route('mapel.store') }}" role="form" method="POST"
+                                    id="form-delete-{{ $hasil->id }}">
+                                    @csrf
+                                    <input type="hidden" name="mapel_id" value="{{ $hasil->mapel_id }}">
+                                    <input type="hidden" name="hasil_id" value="{{ $hasil->materi_id }}">
+                                    <input type="hidden" name="id" value="{{ $hasil->id }}">
 
+                                    <input type="hidden" name="soal_hapus_data" value="{{ $hasil->id }}">
+                                    <button type="submit" value="soal_hapus" class="btn btn-xs btn-danger"
+                                        name="submitbutton" onclick="deleteFunction({{ $hasil->id }})"><i
+                                            class="fa fa-trash"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
@@ -101,15 +149,10 @@
                         <div class="form-group">
                             <label>Soal</label>
                             <input type="hidden" name="mapel_id" value="{{ $id_mapel }}">
-                            <input type="hidden" name="materi_id" value="{{ $materi->id }}">
-                            <textarea class="form-control  @error('data_soal') is-invalid @enderror" rows="3"
-                                name="data_soal" placeholder="Masukan Keterangan"
-                                required>{{ old('soal_data')}}</textarea>
-                            @error('soal_data')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
+                            <input type="hidden" name="hasil_id" value="{{ $materi->id }}">
+                            <textarea class="form-control  @error('soal_materi') is-invalid @enderror" rows="3"
+                                name="soal_materi" placeholder="Masukan Soal"
+                                required>{{ old('soal_materi')}}</textarea>
                             <table class="table table-sm table-bordered table-striped">
                                 <tr>
                                     <td width="5%">a</td>
@@ -172,13 +215,43 @@
                 </div>
 
                 <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="submit" value="save_soal_materi" class="btn btn-xs btn-warning"
+                        name="submitbutton"><i class="fa fa-save"></i> Simpan </button>
+                    <button type="button" class="btn btn-xs btn-danger" data-dismiss="modal"><i class="fa fa-close"></i> Batal</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+@if (session('status_soal'))
+<script>
+    Swal.fire({
+        icon: 'success',
+        title: '{{ session('status_soal') }}',
+    })
+</script>
+@endif
 @push('js')
+<script>
+    function deleteFunction($id) {
+        event.preventDefault();
+        const form = 'form-delete-' + $id;
+        Swal.fire({
+            title: 'Apakah anda yakin menghapus ini?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Tidak'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById(form).submit();
+            }
+        }).catch((error) => {
+            console.log(error);
+        })
+    }
+</script>
 @endpush
 @endsection
