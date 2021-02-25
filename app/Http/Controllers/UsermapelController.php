@@ -24,7 +24,7 @@ class UsermapelController extends Controller
             ->join('detailkelas', 'kelas.id', '=', 'detailkelas.kelas_id')
             ->join('users', 'users.id', '=', 'detailkelas.siswa_id')
             ->join('admins', 'mapels.guru_id', '=', 'admins.id')
-            ->select('users.*', 'mapels.*','admins.name as nama_guru')
+            ->select('users.*','mapels.*','admins.name as nama_guru')
             ->where('users.id', Auth::id())
             ->get();
         // dd($matapelajaran);
@@ -49,7 +49,60 @@ class UsermapelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request->submitbutton == 'cek_materi') {
+            $id_mapel =  $request->mapel_id;
+            $mapel = DB::table('mapels')
+                ->join('materikelas', 'mapels.id', '=', 'materikelas.materi_id')
+                ->join('kelas', 'kelas.id', '=', 'materikelas.kelas_id')
+                ->join('detailkelas', 'kelas.id', '=', 'detailkelas.kelas_id')
+                ->join('users', 'users.id', '=', 'detailkelas.siswa_id')
+                ->join('admins', 'mapels.guru_id', '=', 'admins.id')
+                ->select('users.*','mapels.*','admins.name as nama_guru')
+                ->where('users.id', Auth::id())
+                ->where('mapels.id', $id_mapel)
+                ->first();
+            
+            $materi = Materi::where('mapel_id', $id_mapel)->get();
+            return view('user.mapel.detail_mapel', compact('id_mapel','mapel','materi'));
+
+        } else if ($request->submitbutton == 'detail_materi') {
+            $id_mapel =  $request->mapel_id;
+            $materi_id =  $request->hasil_id;
+            $mapel = Mapel::findorfail($request->mapel_id);
+            $materi = Materi::findorfail($materi_id);
+            $soal_materi = DB::table('soalmateris')
+                ->join('materis', 'materis.id', '=', 'soalmateris.materi_id')
+                ->join('mapels', 'mapels.id', '=', 'soalmateris.mapel_id')
+                ->select('soalmateris.*')
+                ->where('soalmateris.materi_id', $request->hasil_id)
+                ->where('soalmateris.mapel_id', $request->mapel_id)
+                ->get();
+                // dd($soal_materi);
+            return view('user.mapel.detail_materi', compact('mapel','id_mapel','materi','soal_materi'));
+        } else if ($request->submitbutton == 'jawaban_soal') {
+            
+            $id_mapel =  $request->mapel_id;
+            $materi_id =  $request->hasil_id;
+            $mapel = Mapel::findorfail($request->mapel_id);
+
+            $soal_materi = DB::table('soalmateris')
+                ->join('materis', 'materis.id', '=', 'soalmateris.materi_id')
+                ->join('mapels', 'mapels.id', '=', 'soalmateris.mapel_id')
+                ->select('soalmateris.*')
+                ->where('soalmateris.materi_id', $request->hasil_id)
+                ->where('soalmateris.mapel_id', $request->mapel_id)
+                ->get();
+            
+            $jawaban = [];
+            for ($no = 1; $no <= $soal_materi->count(); $no++) {
+                $jawaban[] = [
+                    'jawaban' => $request->input('jawaban_'.$no),
+                    'materi_id' => $request->input('hasil_id'),
+                    'mapel_id' => $request->input('mapel_id'),
+                ];
+            }
+            dd($jawaban);
+        }
     }
 
     /**

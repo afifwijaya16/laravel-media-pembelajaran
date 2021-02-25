@@ -28,15 +28,18 @@
                         </ul>
                     </div>
                     <div class="col-5 text-center">
-                        <img src="../../dist/img/user1-128x128.jpg" alt="user-avatar" class="img-circle img-fluid">
+                        <img src="" alt="user-avatar" class="img-circle img-fluid">
                     </div>
                 </div>
             </div>
             <div class="card-footer">
                 <div class="text-right">
-                    <a href="#" class="btn btn-xs btn-primary">
-                        <i class="fas fa-user"></i> View Profile
-                    </a>
+                    <form action="{{ route('mapel_user.store') }}" role="form" method="POST">
+                        @csrf
+                        <input type="hidden" name="mapel_id" value="{{ $hasil->id }}">
+                        <button type="submit" value="cek_materi" class="btn btn-xs btn-warning"
+                            name="submitbutton"><i class="fa fa-eye"></i> View Materi</button>
+                    </form>
                 </div>
             </div>
         </div>
