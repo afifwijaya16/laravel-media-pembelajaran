@@ -58,7 +58,6 @@
                                             <input type="hidden" name="mapel_id" value="{{ $mapel->id }}">
                                             <button type="submit" value="detail_materi" class="btn btn-xs btn-danger"
                                                 name="submitbutton"><i class="fa fa-edit"></i> Kerjakan Soal</button>
-                                            
                                         </form>
                                         @elseif($hasil->kategori_materi == "Materi")
                                         <form action="{{ route('mapel_user.store') }}" role="form" method="POST">

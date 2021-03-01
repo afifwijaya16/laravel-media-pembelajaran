@@ -8,6 +8,8 @@ use App\Mapel;
 use App\Materi;
 use Illuminate\Support\Facades\DB;
 use App\Materikelas;
+use App\Jawabanmateri;
+use App\Jawabandetailmateri;
 
 class UsermapelController extends Controller
 {
@@ -77,8 +79,20 @@ class UsermapelController extends Controller
                 ->where('soalmateris.materi_id', $request->hasil_id)
                 ->where('soalmateris.mapel_id', $request->mapel_id)
                 ->get();
-                // dd($soal_materi);
-            return view('user.mapel.detail_materi', compact('mapel','id_mapel','materi','soal_materi'));
+
+            // Jawaban
+            $jawabanMateri = Jawabanmateri::where('mapel_id', $id_mapel)->where('materi_id', $materi_id)->where('siswa_id', Auth::id())->first();
+            
+            if(empty($jawabanMateri)){
+                $jawaban_data = Jawabanmateri::create([
+                    'siswa_id' => Auth::id(),
+                    'mapel_id' => $id_mapel,
+                    'materi_id' => $materi_id,
+                    'keterangan_jawaban_materi' => '-',
+                ]);
+            } 
+            $jawabanMateri = Jawabanmateri::where('mapel_id', $id_mapel)->where('materi_id', $materi_id)->where('siswa_id', Auth::id())->first();
+            return view('user.mapel.detail_materi', compact('mapel','id_mapel','materi','soal_materi','jawabanMateri'));
         } else if ($request->submitbutton == 'jawaban_soal') {
             
             $id_mapel =  $request->mapel_id;
@@ -93,15 +107,35 @@ class UsermapelController extends Controller
                 ->where('soalmateris.mapel_id', $request->mapel_id)
                 ->get();
             
+            $jawabanMateri = Jawabanmateri::where('mapel_id', $id_mapel)->where('materi_id', $materi_id)->where('siswa_id', Auth::id())->first();
+
             $jawaban = [];
+            $jawaban_benar = 0;
             for ($no = 1; $no <= $soal_materi->count(); $no++) {
                 $jawaban[] = [
-                    'jawaban' => $request->input('jawaban_'.$no),
-                    'materi_id' => $request->input('hasil_id'),
-                    'mapel_id' => $request->input('mapel_id'),
+                    'soal_id' => $request->input('soal_'.$no),
+                    'jawaban_yang_dipilih' => $request->input('jawaban_'.$no),
+                    'jawaban_materi_id' => $jawabanMateri->id,
                 ];
             }
-            dd($jawaban);
+                
+            Jawabandetailmateri::insert($jawaban);
+
+            foreach($soal_materi as $hasil) {
+                foreach($jawaban as $jwb) {
+                    if($hasil->id == $jwb['soal_id'] && $hasil->jawaban_benar == $jwb['jawaban_yang_dipilih']) {
+                        $jawaban_benar++;
+                    }
+                }
+            }
+            $jawaban_data = [
+                'status_jawaban_materi' => 'Sudah Mengerjakan Soal',
+                'nilai' => $jawaban_benar,
+            ];
+
+            $jawabanMateri->update($jawaban_data);
+            $materi = Materi::findorfail($materi_id);
+            return view('user.mapel.detail_materi', compact('mapel','id_mapel','materi','soal_materi','jawabanMateri'));
         }
     }
 

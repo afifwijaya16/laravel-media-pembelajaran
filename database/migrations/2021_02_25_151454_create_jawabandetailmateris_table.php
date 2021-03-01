@@ -15,8 +15,9 @@ class CreateJawabandetailmaterisTable extends Migration
     {
         Schema::create('jawabandetailmateris', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('jawaban_materi_id');
+            $table->integer('jawaban_materi_id')->nullable();
             $table->string('jawaban_yang_dipilih')->nullable();
+            $table->string('soal_id')->nullable();
             $table->timestamps();
         });
     }

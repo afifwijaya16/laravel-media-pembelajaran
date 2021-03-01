@@ -79,6 +79,7 @@
 @if($materi->kategori_materi == 'Soal')
 <div class="col-12">
     <div class="card">
+        @if($jawabanMateri->status_jawaban_materi == "Sedang Mengerjakan")
         <div class="card-header">
             <h5> SOAL PILIHAN GANDA</h5>
         </div>
@@ -88,14 +89,15 @@
                 <input type="hidden" name="hasil_id" value="{{ $materi->id }}">
                 <input type="hidden" name="mapel_id" value="{{ $mapel->id }}">
                 @foreach ($soal_materi as $result => $hasil)
+                <input type="hidden" name="soal_{{ $loop->iteration }}" value="{{ $hasil->id }}">
                 <ol start="{{ $loop->iteration }}" type="1">
                     <li>{{ $hasil->soal_materi }}</li>
                     <ol start="1" type="a">
-                        <li><input type="radio" name="jawaban_{{ $loop->iteration }}" value="a"> {{ $hasil->jawaban_soal_a }}</li>
-                        <li><input type="radio" name="jawaban_{{ $loop->iteration }}" value="b"> {{ $hasil->jawaban_soal_b }}</li>
-                        <li><input type="radio" name="jawaban_{{ $loop->iteration }}" value="c"> {{ $hasil->jawaban_soal_c }}</li>
-                        <li><input type="radio" name="jawaban_{{ $loop->iteration }}" value="d"> {{ $hasil->jawaban_soal_d }}</li>
-                        <li><input type="radio" name="jawaban_{{ $loop->iteration }}" value="e"> {{ $hasil->jawaban_soal_e }}</li>
+                        <li><input type="radio" name="jawaban_{{ $loop->iteration }}" value="A" required> {{ $hasil->jawaban_soal_a }}</li>
+                        <li><input type="radio" name="jawaban_{{ $loop->iteration }}" value="B"> {{ $hasil->jawaban_soal_b }}</li>
+                        <li><input type="radio" name="jawaban_{{ $loop->iteration }}" value="C"> {{ $hasil->jawaban_soal_c }}</li>
+                        <li><input type="radio" name="jawaban_{{ $loop->iteration }}" value="D"> {{ $hasil->jawaban_soal_d }}</li>
+                        <li><input type="radio" name="jawaban_{{ $loop->iteration }}" value="E"> {{ $hasil->jawaban_soal_e }}</li>
                     </ol>
                 </ol>
                 @endforeach
@@ -103,6 +105,11 @@
                     name="submitbutton"><i class="fa fa-save"></i> Selesai Mengerjakan</button>
             </form>
         </div>
+        @else 
+        <div class="card-header text-center">
+            <h5>Score yang diraih : {{$jawabanMateri->nilai}} </h5>
+        </div>
+        @endif
     </div>
 </div>
 @endif

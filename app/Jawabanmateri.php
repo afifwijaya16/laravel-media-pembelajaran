@@ -14,4 +14,8 @@ class Jawabanmateri extends Model
         'nilai',
         'status_jawaban_materi',
     ];
+
+    public function detailJawaban(){
+        return $this->hasMany('App\Jawabandetailmateri');
+    }
 }
